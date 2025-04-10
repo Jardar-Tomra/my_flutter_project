@@ -8,12 +8,12 @@ final List<Project> projectData = [
     description: 'Providing clean water to communities in need.',
     icon: Icons.water, // Added icon
     imageUrl: 'assets/images/clean_water.png', // Updated to .png
-    startDate: DateTime(2025, 1, 1),
-    endDate: DateTime(2025, 12, 31),
+    startDate: DateTime(2025, 4, 7),
+    endDate: DateTime(2025, 5, 1),
     donations: [ // Added donations
       Donation(
         id: 'd1',
-        day: DateTime(2025, 1, 2), // Changed to DateTime
+        day: DateTime(2025, 4, 8), // Changed to DateTime
         amount: 100.0,
         text: 'Donation for clean water.',
         prayer: 'May this help those in need.',

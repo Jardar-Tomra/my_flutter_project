@@ -20,6 +20,13 @@ class Project {
     required this.endDate,
     required this.donations,
   });
+
+  void addDonation(double amount) {
+    // Get today without time.
+    final today = DateTime.now();
+    final day = DateTime(today.year, today.month, today.day);
+    donations.add(Donation(id: '', amount: amount, day: day, text: '', prayer: ''));
+  }
 }
 
 class Donation {
