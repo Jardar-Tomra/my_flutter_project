@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_flutter_project/extensions/date_time_formatting.dart';
 import 'datamodel/project.dart';
 import 'project_tracker.dart'; // Import the ProjectTracker widget
 import '../bloc/project_bloc.dart';
@@ -72,18 +73,28 @@ class ProjectOverviewPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'Project Summary:',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        Row(
+                          children: [
+                            Icon(
+                              currentProject.icon,
+                              size: 40,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: Text(
+                                currentProject.title,
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                        const SizedBox(height: 8),
-                        Text('Start Date: ${currentProject.startDate}'),
-                        Text('End Date: ${currentProject.endDate}'),
+                        const SizedBox(height: 16),
                         Text(
-                          'Total Donations: \$${totalDonations.toStringAsFixed(2)}',
+                          'Total Donations: \$${currentProject.getTotalDonations().toStringAsFixed(2)}',
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -91,6 +102,14 @@ class ProjectOverviewPage extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 8),
+                        Text(
+                          'Duration: ${currentProject.startDate.toLocal().toShortDateString()} - ${currentProject.endDate.toLocal().toShortDateString()}',
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: Colors.black54,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
                         const Text(
                           'Donation Tracker:',
                           style: TextStyle(
@@ -98,7 +117,7 @@ class ProjectOverviewPage extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const SizedBox(height: 4),
+                        const SizedBox(height: 8),
                         BlocBuilder<ProjectBloc, ProjectState>(
                           builder: (context, state) {
                             final updatedProject = state is ProjectUpdatedState ? state.project : currentProject;
