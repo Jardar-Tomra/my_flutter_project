@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_flutter_project/extensions/date_time_formatting.dart';
+import 'package:my_flutter_project/styles/app_text_styles.dart';
 import 'datamodel/project.dart';
 import 'project_tracker.dart'; // Import the ProjectTracker widget
 import '../bloc/project_bloc.dart';
@@ -50,10 +51,7 @@ class ProjectOverviewPage extends StatelessWidget {
                         Expanded(
                           child: Text(
                             currentProject.title,
-                            style: const TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: AppTextStyles.titleLarge,
                           ),
                         ),
                       ],
@@ -64,7 +62,7 @@ class ProjectOverviewPage extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Text(
                       currentProject.description,
-                      style: const TextStyle(fontSize: 16),
+                      style: AppTextStyles.bodyMedium,
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -84,10 +82,7 @@ class ProjectOverviewPage extends StatelessWidget {
                             Expanded(
                               child: Text(
                                 currentProject.title,
-                                style: const TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                style: AppTextStyles.titleLarge,
                               ),
                             ),
                           ],
@@ -95,27 +90,17 @@ class ProjectOverviewPage extends StatelessWidget {
                         const SizedBox(height: 16),
                         Text(
                           'Total Donations: \$${currentProject.getTotalDonations().toStringAsFixed(2)}',
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue,
-                          ),
+                          style: AppTextStyles.bodyLarge,
                         ),
                         const SizedBox(height: 8),
                         Text(
                           'Duration: ${currentProject.startDate.toLocal().toShortDateString()} - ${currentProject.endDate.toLocal().toShortDateString()}',
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.black54,
-                          ),
+                          style: AppTextStyles.bodySmall,
                         ),
                         const SizedBox(height: 16),
                         const Text(
                           'Donation Tracker:',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: AppTextStyles.sectionHeader,
                         ),
                         const SizedBox(height: 8),
                         BlocBuilder<ProjectBloc, ProjectState>(
@@ -128,11 +113,7 @@ class ProjectOverviewPage extends StatelessWidget {
                                 children: [
                                   const Text(
                                     'No donations have been made yet.',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontStyle: FontStyle.italic,
-                                      color: Colors.grey,
-                                    ),
+                                    style: AppTextStyles.italicGrey,
                                   ),
                                   const SizedBox(height: 8),
                                   DonationButton(

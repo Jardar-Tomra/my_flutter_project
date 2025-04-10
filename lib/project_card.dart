@@ -4,6 +4,7 @@ import 'package:my_flutter_project/project_tracker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_flutter_project/bloc/project_bloc.dart';
 import 'package:my_flutter_project/extensions/date_time_formatting.dart';
+import 'package:my_flutter_project/styles/app_text_styles.dart';
 
 class ProjectCard extends StatelessWidget {
   final Project project;
@@ -54,10 +55,7 @@ class ProjectCard extends StatelessWidget {
                         Expanded(
                           child: Text(
                             updatedProject.title,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: AppTextStyles.titleMedium,
                           ),
                         ),
                         if (isActive)
@@ -70,28 +68,18 @@ class ProjectCard extends StatelessWidget {
                     const SizedBox(height: 16),
                     Text(
                       'Total Donations: \$${updatedProject.getTotalDonations().toStringAsFixed(2)}',
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue,
-                      ),
+                      style: AppTextStyles.bodyLarge,
                     ),
                     const SizedBox(height: 8),
                     Text(
                       'Duration: ${updatedProject.startDate.toLocal().toShortDateString()} - ${updatedProject.endDate.toLocal().toShortDateString()}',
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: Colors.black54,
-                      ),
+                      style: AppTextStyles.bodySmall,
                     ),
                     if (isActive) ...[
                       const SizedBox(height: 16),
                       const Text(
                         'Donation Tracker:',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: AppTextStyles.sectionHeader,
                       ),
                       const SizedBox(height: 8),
                       ProjectTracker.fromProject(updatedProject),
