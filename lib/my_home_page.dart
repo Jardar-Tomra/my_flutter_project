@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'project_data.dart';
 import 'project_overview_page.dart'; // Import the project overview page
 import 'user_data.dart'; // Import user data
+import 'project_tracker.dart'; // Import the ProjectTracker widget
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key, required this.title});
@@ -139,17 +140,9 @@ class ProjectCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 4),
-              Row(
-                children: allDays.map((day) {
-                  final isDonated = donationDays.contains(day);
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                    child: CircleAvatar(
-                      radius: 6, // Small dot size
-                      backgroundColor: isDonated ? Colors.green : Colors.grey,
-                    ),
-                  );
-                }).toList(),
+              ProjectTracker(
+                allDays: allDays,
+                donationDays: donationDays,
               ),
             ],
           ],
