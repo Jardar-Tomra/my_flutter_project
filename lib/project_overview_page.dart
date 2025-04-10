@@ -1,28 +1,27 @@
 import 'package:flutter/material.dart';
+import 'datamodel/project.dart';
 import 'project_tracker.dart'; // Import the ProjectTracker widget
 
 class ProjectOverviewPage extends StatelessWidget {
-  final String title;
-  final String description;
-  final IconData icon;
-  final String imageUrl; // Add an image URL field
-  final double totalDonations = 0.0; // Example: Replace with actual data
-  final List<String> donationDays = []; // Example: Replace with actual data
-  final List<String> allDays = []; // Example: Replace with actual data
+  final Project project;
 
-  ProjectOverviewPage({
+  const ProjectOverviewPage({
     super.key,
-    required this.title,
-    required this.description,
-    required this.icon,
-    required this.imageUrl, // Require the image URL
+    required this.project,
   });
 
   @override
   Widget build(BuildContext context) {
+    final totalDonations = project.donations.length.toDouble(); // Example: Replace with actual logic
+    final donationDays = project.donations.map((donation) => donation.day).toList();
+    final allDays = List.generate(7, (index) {
+      final startDate = project.startDate;
+      return startDate.add(Duration(days: index)).toIso8601String().split('T').first;
+    });
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text(project.title),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -30,7 +29,7 @@ class ProjectOverviewPage extends StatelessWidget {
           children: [
             // Display the image at the top
             Image.network(
-              imageUrl,
+              project.imageUrl,
               width: double.infinity,
               height: 200,
               fit: BoxFit.cover,
@@ -40,11 +39,11 @@ class ProjectOverviewPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Row(
                 children: [
-                  Icon(icon, size: 48, color: Theme.of(context).primaryColor),
+                  Icon(project.icon, size: 48, color: Theme.of(context).primaryColor),
                   const SizedBox(width: 16),
                   Expanded(
                     child: Text(
-                      title,
+                      project.title,
                       style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
@@ -58,7 +57,7 @@ class ProjectOverviewPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Text(
-                description,
+                project.description,
                 style: const TextStyle(fontSize: 16),
               ),
             ),
@@ -76,12 +75,8 @@ class ProjectOverviewPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  Text(
-                    'Start Date: ${DateTime.now().toIso8601String().split('T').first}', // Replace with actual start date
-                  ),
-                  Text(
-                    'End Date: ${DateTime.now().toIso8601String().split('T').first}', // Replace with actual end date
-                  ),
+                  Text('Start Date: ${project.startDate}'),
+                  Text('End Date: ${project.endDate}'),
                   Text(
                     'Total Donations: \$${totalDonations.toStringAsFixed(2)}',
                     style: const TextStyle(

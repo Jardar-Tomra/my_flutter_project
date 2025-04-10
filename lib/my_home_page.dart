@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'project_data.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'bloc/project_bloc.dart';
+import 'bloc/user_bloc.dart';
+import 'datamodel/project.dart';
 import 'project_overview_page.dart'; // Import the project overview page
-import 'user_data.dart'; // Import user data
 import 'project_tracker.dart'; // Import the ProjectTracker widget
 
 class MyHomePage extends StatelessWidget {
@@ -11,71 +13,79 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Assume the first user is the active user
-    final activeUser = users.first;
-
-    // Sort projects: active projects first
-    final sortedProjects = [
-      ...projectData.where((project) => activeUser.activeProjects.contains(project.title)),
-      ...projectData.where((project) => !activeUser.activeProjects.contains(project.title)),
-    ];
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(title),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Display active user information
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Welcome, ${activeUser.name}!',
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const Divider(),
-          // Display the sorted list of projects
-          Expanded(
-            child: ListView.builder(
-              itemCount: sortedProjects.length,
-              itemBuilder: (context, index) {
-                final project = sortedProjects[index];
-                final isActive = activeUser.activeProjects.contains(project.title);
-                final totalDonations = activeUser.totalDonationsPerProject[project.title] ?? 0.0;
-
-                return ProjectCard(
-                  project: project,
-                  isActive: isActive,
-                  totalDonations: totalDonations,
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ProjectOverviewPage(
-                          title: project.title,
-                          description: project.description,
-                          icon: project.icon,
-                          imageUrl: project.imageUrl,
-                        ),
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
-          ),
+      body: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (_) => ProjectBloc()..add(LoadProjects())),
+          BlocProvider(create: (_) => UserBloc()..add(LoadUsers())),
         ],
+        child: BlocBuilder<UserBloc, UserState>(
+          builder: (context, userState) {
+            if (userState is UserLoaded) {
+              final activeUser = userState.activeUser;
+
+              return BlocBuilder<ProjectBloc, ProjectState>(
+                builder: (context, projectState) {
+                  if (projectState is ProjectLoaded) {
+                    final sortedProjects = [
+                      ...projectState.projects.where((project) => activeUser.activeProjects.contains(project.title)),
+                      ...projectState.projects.where((project) => !activeUser.activeProjects.contains(project.title)),
+                    ];
+
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Text(
+                            'Welcome, ${activeUser.name}!',
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        const Divider(),
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: sortedProjects.length,
+                            itemBuilder: (context, index) {
+                              final project = sortedProjects[index];
+                              final isActive = activeUser.activeProjects.contains(project.title);
+                              final totalDonations = activeUser.totalDonationsPerProject[project.title] ?? 0.0;
+
+                              return ProjectCard(
+                                project: project,
+                                isActive: isActive,
+                                totalDonations: totalDonations,
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ProjectOverviewPage(
+                                        project: project,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    );
+                  }
+                  return const Center(child: CircularProgressIndicator());
+                },
+              );
+            }
+            return const Center(child: CircularProgressIndicator());
+          },
+        ),
       ),
     );
   }
@@ -101,7 +111,7 @@ class ProjectCard extends StatelessWidget {
     final donationDays = project.donations.map((donation) => donation.day).toList();
     final allDays = List.generate(7, (index) {
       // Example: Generate 7 days starting from the project's start date
-      final startDate = DateTime.parse(project.startDate);
+      final startDate = project.startDate;
       return startDate.add(Duration(days: index)).toIso8601String().split('T').first;
     });
 
