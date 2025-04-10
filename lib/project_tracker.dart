@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'datamodel/project.dart';
 
@@ -27,6 +29,7 @@ class ProjectTracker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("updated project tracker");
     return Row(
       children: allDays.map((day) {
         final isDonated = donationDays.contains(day);

@@ -27,6 +27,10 @@ class Project {
     final day = DateTime(today.year, today.month, today.day);
     donations.add(Donation(id: '', amount: amount, day: day, text: '', prayer: ''));
   }
+
+  double getTotalDonations() {
+    return donations.fold(0, (sum, donation) => sum + donation.amount);
+  }
 }
 
 class Donation {
