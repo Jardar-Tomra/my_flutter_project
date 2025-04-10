@@ -24,14 +24,14 @@ class Project {
 
 class Donation {
   final String id; // Added id field
-  final String day;
+  final DateTime day; // Changed type from String to DateTime
   final double amount;
   final String text;
   final String prayer;
 
   Donation({
     required this.id, // Added id to constructor
-    required this.day,
+    required this.day, // Updated type to DateTime
     required this.amount,
     required this.text,
     required this.prayer,

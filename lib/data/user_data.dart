@@ -8,12 +8,12 @@ final List<User> users = [
     donations: [
       {
         'projectTitle': 'Clean Water Initiative',
-        'day': '2025-04-01',
+        'day': '2025-01-01',
         'amount': 50.0,
       },
       {
         'projectTitle': 'Education for All',
-        'day': '2025-04-02',
+        'day': '2025-01-05',
         'amount': 75.0,
       },
     ],

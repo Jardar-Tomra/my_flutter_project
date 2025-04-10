@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ProjectTracker extends StatelessWidget {
-  final List<String> allDays;
-  final List<String> donationDays;
+  final List<DateTime> allDays;
+  final List<DateTime> donationDays;
 
   const ProjectTracker({
     super.key,

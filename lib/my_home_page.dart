@@ -112,7 +112,7 @@ class ProjectCard extends StatelessWidget {
     final allDays = List.generate(7, (index) {
       // Example: Generate 7 days starting from the project's start date
       final startDate = project.startDate;
-      return startDate.add(Duration(days: index)).toIso8601String().split('T').first;
+      return startDate.add(Duration(days: index));
     });
 
     return Card(

@@ -7,13 +7,13 @@ final List<Project> projectData = [
     title: 'Clean Water Initiative',
     description: 'Providing clean water to communities in need.',
     icon: Icons.water, // Added icon
-    imageUrl: 'assets/images/clean_water.jpg', // Added imageUrl
+    imageUrl: 'assets/images/clean_water.png', // Updated to .png
     startDate: DateTime(2025, 1, 1),
     endDate: DateTime(2025, 12, 31),
     donations: [ // Added donations
       Donation(
         id: 'd1',
-        day: '2025-01-15',
+        day: DateTime(2025, 1, 2), // Changed to DateTime
         amount: 100.0,
         text: 'Donation for clean water.',
         prayer: 'May this help those in need.',
@@ -25,13 +25,13 @@ final List<Project> projectData = [
     title: 'Education for All',
     description: 'Ensuring access to education for children in underprivileged areas.',
     icon: Icons.school, // Added icon
-    imageUrl: 'assets/images/education.jpg', // Added imageUrl
+    imageUrl: 'assets/images/education.png', // Updated to .png
     startDate: DateTime(2025, 2, 1),
     endDate: DateTime(2025, 11, 30),
     donations: [ // Added donations
       Donation(
         id: 'd2',
-        day: '2025-02-20',
+        day: DateTime(2025, 2, 20), // Changed to DateTime
         amount: 200.0,
         text: 'Donation for education.',
         prayer: 'May this bring knowledge to many.',
@@ -43,13 +43,13 @@ final List<Project> projectData = [
     title: 'Healthcare Access',
     description: 'Providing healthcare services to remote areas.',
     icon: Icons.local_hospital, // Added icon
-    imageUrl: 'assets/images/healthcare.jpg', // Added imageUrl
+    imageUrl: 'assets/images/healthcare.png', // Updated to .png
     startDate: DateTime(2025, 3, 1),
     endDate: DateTime(2025, 10, 31),
     donations: [ // Added donations
       Donation(
         id: 'd3',
-        day: '2025-03-10',
+        day: DateTime(2025, 3, 10), // Changed to DateTime
         amount: 150.0,
         text: 'Donation for healthcare.',
         prayer: 'May this heal the sick.',

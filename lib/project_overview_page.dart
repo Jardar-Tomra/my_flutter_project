@@ -16,7 +16,7 @@ class ProjectOverviewPage extends StatelessWidget {
     final donationDays = project.donations.map((donation) => donation.day).toList();
     final allDays = List.generate(7, (index) {
       final startDate = project.startDate;
-      return startDate.add(Duration(days: index)).toIso8601String().split('T').first;
+      return startDate.add(Duration(days: index));
     });
 
     return Scaffold(
