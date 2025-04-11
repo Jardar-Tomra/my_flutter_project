@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_flutter_project/bloc/project.dart';
 import 'package:my_flutter_project/extensions/date_time_formatting.dart';
 import 'package:my_flutter_project/styles/app_text_styles.dart';
-import 'datamodel/project.dart';
 import 'project_tracker.dart'; // Import the ProjectTracker widget
 import '../bloc/project_bloc.dart';
 import '../widgets/donation_button.dart';
@@ -28,7 +28,6 @@ class ProjectPage extends StatelessWidget {
 
         return WillPopScope(
           onWillPop: () => Future(() {
-            print("Is popping back");
             _save(context, currentProject);
             return true;
           }),
@@ -79,7 +78,7 @@ class ProjectPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Total Donations: \$${currentProject.getTotalDonations().toStringAsFixed(2)}',
+                          'Total Donations: \$${currentProject.totalDonations.toStringAsFixed(2)}',
                           style: AppTextStyles.bodyLarge,
                         ),
                         const SizedBox(height: 8),
@@ -97,7 +96,7 @@ class ProjectPage extends StatelessWidget {
                           builder: (context, state) {
                             final updatedProject = state is ProjectUpdatedState ? state.project : currentProject;
                 
-                            if (updatedProject.donations.isEmpty) {
+                            if (updatedProject.donations().isEmpty) {
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -109,7 +108,7 @@ class ProjectPage extends StatelessWidget {
                                   DonationButton(
                                     projectId: updatedProject.id,
                                     amount: 50.0, // Example amount
-                                    donations: updatedProject.donations,
+                                    donations: updatedProject.donations(),
                                   ),
                                 ],
                               );
@@ -127,7 +126,7 @@ class ProjectPage extends StatelessWidget {
                     child: DonationButton(
                       projectId: currentProject.id,
                       amount: 50.0, // Example amount
-                      donations: currentProject.donations,
+                      donations: currentProject.donations(),
                     ),
                   ),
                 ],

@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../datamodel/project.dart';
-import '../data/project_data.dart'; // Import the project data
+import 'package:my_flutter_project/bloc/project.dart';
+import 'package:my_flutter_project/datamodel/repository.dart' as repository_entity;
+import 'package:my_flutter_project/datamodel/user_entity.dart';
+import 'package:get_it/get_it.dart';
 
 abstract class ProjectEvent {}
 
@@ -31,10 +33,10 @@ abstract class ProjectState {}
 
 class ProjectInitial extends ProjectState {}
 
-class ProjectLoaded extends ProjectState {
+class ProjectsLoaded extends ProjectState {
   final List<Project> projects;
 
-  ProjectLoaded(this.projects);
+  ProjectsLoaded(this.projects);
 }
 
 class ProjectUpdatedState extends ProjectState {
@@ -45,34 +47,35 @@ class ProjectUpdatedState extends ProjectState {
 
 
 class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
-  final List<Project> projects;
+  final repository_entity.Repository repo;
+  final UserEntity user = GetIt.instance<UserEntity>();
 
-  ProjectBloc(this.projects) : super(ProjectInitial()) {
+  ProjectBloc(this.repo) : super(ProjectInitial()) {
     on<LoadProjects>((event, emit) {
       // Load initial projects from project_data.dart
-      emit(ProjectLoaded(projectData));
+      emit(ProjectsLoaded(getProjects()));
     });
 
     on<UpdateProjects>((event, emit) {
-      emit(ProjectLoaded(event.projects));
+      emit(ProjectsLoaded(event.projects));
     });
 
     on<RefreshProjects>((event, emit) {
-      emit(ProjectLoaded(projects));
+      emit(ProjectsLoaded(getProjects()));
     });
 
     on<UpdateProject>((event, emit) {
-      emit(ProjectLoaded(projects));
+      emit(ProjectsLoaded(getProjects()));
     });
 
     on<AddDonationEvent>((event, emit) {
-      final project = projects.firstWhere((p) => p.id == event.projectId);
-      project.addDonation(event.amount);
-      emit(ProjectUpdatedState(project));
+      repo.addDonationForToday(event.projectId, user.id, event.amount);
+      emit(ProjectUpdatedState( Project.fromEntity(repo, repo.getProjectById(event.projectId), user.id)));
     });
   }
-  factory ProjectBloc.initialize() {
-    return ProjectBloc(List<Project>.from(projectData));
+
+  List<Project> getProjects() {
+    return repo.projects.map((project) => Project.fromEntity(repo, project, user.id)).toList();
   }
 }
 

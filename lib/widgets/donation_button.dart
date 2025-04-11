@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_flutter_project/datamodel/donation_entity.dart';
 import '../bloc/project_bloc.dart';
-import '../datamodel/project.dart';
 
 class DonationButton extends StatelessWidget {
   final String projectId;
   final double amount;
-  final List<Donation> donations;
+  final List<DonationEntity> donations;
 
   const DonationButton({
     super.key,
@@ -18,9 +18,9 @@ class DonationButton extends StatelessWidget {
   bool _hasDonatedToday() {
     final today = DateTime.now();
     return donations.any((donation) =>
-        donation.day.year == today.year &&
-        donation.day.month == today.month &&
-        donation.day.day == today.day);
+        donation.date.year == today.year &&
+        donation.date.month == today.month &&
+        donation.date.day == today.day);
   }
 
   @override

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_flutter_project/datamodel/project.dart';
+import 'package:my_flutter_project/bloc/project.dart';
 import 'package:my_flutter_project/project_tracker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_flutter_project/bloc/project_bloc.dart';
@@ -8,15 +8,11 @@ import 'package:my_flutter_project/styles/app_text_styles.dart';
 
 class ProjectCard extends StatelessWidget {
   final Project project;
-  final bool isActive;
-  final double totalDonations;
   final VoidCallback onTap;
 
   const ProjectCard({
     super.key,
     required this.project,
-    required this.isActive,
-    required this.totalDonations,
     required this.onTap,
   });
 
@@ -47,9 +43,9 @@ class ProjectCard extends StatelessWidget {
                     Row(
                       children: [
                         Icon(
-                          updatedProject.icon,
+                          project.icon,
                           size: 40,
-                          color: isActive ? Colors.green : Colors.grey,
+                          color: project.isAssigned() ? Colors.green : Colors.grey,
                         ),
                         const SizedBox(width: 16),
                         Expanded(
@@ -58,7 +54,7 @@ class ProjectCard extends StatelessWidget {
                             style: AppTextStyles.titleMedium,
                           ),
                         ),
-                        if (isActive)
+                        if (project.isAssigned())
                           const Icon(
                             Icons.check_circle,
                             color: Colors.green,
@@ -67,7 +63,7 @@ class ProjectCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      'Total Donations: \$${updatedProject.getTotalDonations().toStringAsFixed(2)}',
+                      'Total Donations: \$${project.totalDonations.toStringAsFixed(2)}',
                       style: AppTextStyles.bodyLarge,
                     ),
                     const SizedBox(height: 8),
@@ -75,7 +71,7 @@ class ProjectCard extends StatelessWidget {
                       'Duration: ${updatedProject.startDate.toLocal().toShortDateString()} - ${updatedProject.endDate.toLocal().toShortDateString()}',
                       style: AppTextStyles.bodySmall,
                     ),
-                    if (isActive) ...[
+                    if (project.isAssigned()) ...[
                       const SizedBox(height: 16),
                       const Text(
                         'Donation Tracker:',

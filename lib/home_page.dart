@@ -24,10 +24,10 @@ class HomePage extends StatelessWidget {
 
             return BlocBuilder<ProjectBloc, ProjectState>(
               builder: (context, projectState) {
-                if (projectState is ProjectLoaded) {
+                if (projectState is ProjectsLoaded) {
                   final sortedProjects = [
-                    ...projectState.projects.where((project) => activeUser.activeProjects.contains(project.title)),
-                    ...projectState.projects.where((project) => !activeUser.activeProjects.contains(project.title)),
+                    ...userState.activeUser.getAssignedProjects(),
+                    ...userState.activeUser.getUnassignedProjects(),
                   ];
 
                   return Column(
@@ -48,14 +48,11 @@ class HomePage extends StatelessWidget {
                         child: ListView.builder(
                           itemCount: sortedProjects.length,
                           itemBuilder: (context, index) {
+                            
                             final project = sortedProjects[index];
-                            final isActive = activeUser.activeProjects.contains(project.title);
-                            final totalDonations = activeUser.totalDonationsPerProject[project.title] ?? 0.0;
 
                             return ProjectCard(
                               project: project,
-                              isActive: isActive,
-                              totalDonations: totalDonations,
                               onTap: () {
                                 Navigator.push(
                                   context,

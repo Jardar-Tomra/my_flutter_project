@@ -1,6 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../datamodel/user.dart';
-import '../data/user_data.dart'; // Import the user data
+import 'package:get_it/get_it.dart';
+import 'package:my_flutter_project/bloc/user.dart';
+import 'package:my_flutter_project/datamodel/repository.dart' as repository_entity;
+import 'package:my_flutter_project/datamodel/user_entity.dart';
+
 
 abstract class UserEvent {}
 
@@ -23,10 +26,10 @@ class UserLoaded extends UserState {
 }
 
 class UserBloc extends Bloc<UserEvent, UserState> {
-  UserBloc() : super(UserInitial()) {
+  UserBloc(repository_entity.Repository repo) : super(UserInitial()) {
     on<LoadUsers>((event, emit) {
       // Load initial users from user_data.dart
-      emit(UserLoaded(users[0])); // Assuming the first user is the active one
+      emit(UserLoaded(User.fromEntity(repo, GetIt.instance<UserEntity>()) )); // Assuming the first user is the active one
     });
 
     on<UpdateActiveUser>((event, emit) {
