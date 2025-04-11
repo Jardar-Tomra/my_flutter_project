@@ -4,10 +4,10 @@ import 'datamodel/project.dart';
 import 'bloc/project_bloc.dart';
 import 'project_card.dart';
 
-class ProjectListPage extends StatelessWidget {
+class ProjectListWidget extends StatelessWidget {
   final List<Project> projects;
 
-  const ProjectListPage({super.key, required this.projects});
+  const ProjectListWidget({super.key, required this.projects});
 
   @override
   Widget build(BuildContext context) {
