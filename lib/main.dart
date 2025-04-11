@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:logger/logger.dart';
 import 'package:my_flutter_project/bloc/bloc_factory.dart';
 import 'package:my_flutter_project/datamodel/user_entity.dart';
 import 'bloc/project_bloc.dart';
@@ -10,25 +11,25 @@ import 'datamodel/repository.dart' as repository_entity;
 
 final getIt = GetIt.instance;
 
-void setupDependencies() {
+Future<void> setupDependencies() async {
   final repository = repository_entity.Repository.initial();
-
   final blocFactory = BlocFactory(repository);
-
   getIt.registerSingleton<repository_entity.Repository>(repository);
   getIt.registerSingleton<BlocFactory>(blocFactory);
 
-  // Register the current user ID
-  const currentUserId = '1'; // Replace with dynamic user ID if needed
-  getIt.registerSingleton<String>(currentUserId, instanceName: 'currentUserId');
+  await repository.loadData(); // Load initial data into the repository
 
+
+  const currentUserId = '1';
   // Register the current user object
   final currentUser = repository.getUserById(currentUserId);
-  getIt.registerSingleton<UserEntity>(currentUser, instanceName: 'currentUser');
+  getIt.registerSingleton<UserEntity>(currentUser);
+  print("setupDependencies: currentUserId: $currentUserId, currentUser: $currentUser");
 }
 
-void main() {
-  setupDependencies();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // Ensure Flutter bindings are initialized
+  await setupDependencies(); // Wait for dependencies to be set up
   runApp(const MyApp());
 }
 

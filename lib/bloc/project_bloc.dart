@@ -48,7 +48,7 @@ class ProjectUpdatedState extends ProjectState {
 
 class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
   final repository_entity.Repository repo;
-  final UserEntity user = GetIt.instance<UserEntity>();
+  final UserEntity user = GetIt.instance.get<UserEntity>();
 
   ProjectBloc(this.repo) : super(ProjectInitial()) {
     on<LoadProjects>((event, emit) {

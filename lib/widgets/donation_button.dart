@@ -51,14 +51,6 @@ class DonationButton extends StatelessWidget {
             content: Text('Thank you for your donation!'),
           ),
         );
-
-        // Trigger a state update to refresh the UI
-        context.read<ProjectBloc>().add(
-              AddDonationEvent(
-                projectId: projectId,
-                amount: amount,
-              ),
-            );
       },
       child: const Text('Donate Now'),
     );

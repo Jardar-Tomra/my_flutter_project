@@ -5,6 +5,7 @@ import 'project_day_entity.dart' as project_day_entity;
 import 'dart:convert';
 import 'dart:io';
 import 'user_project_assignment_entity.dart' as user_project_assignment_entity;
+import 'package:flutter/services.dart';
 
 class Repository {
   final List<UserEntity> users;
@@ -115,11 +116,11 @@ class Repository {
   }
 
   Future<void> loadData() async {
-    final projectJson = File('lib/data/projects.json').readAsStringSync();
-    final projectDayJson = File('lib/data/project_days.json').readAsStringSync();
-    final donationJson = File('lib/data/donations.json').readAsStringSync();
-    final userJson = File('lib/data/users.json').readAsStringSync();
-    final assignmentJson = File('lib/data/user_project_assignments.json').readAsStringSync();
+    final projectJson = await rootBundle.loadString('assets/data/projects.json');
+    final projectDayJson = await rootBundle.loadString('assets/data/project_days.json');
+    final donationJson = await rootBundle.loadString('assets/data/donations.json');
+    final userJson = await rootBundle.loadString('assets/data/users.json');
+    final assignmentJson = await rootBundle.loadString('assets/data/user_project_assignments.json');
 
     projects.addAll((jsonDecode(projectJson) as List)
         .map((data) => project_entity.ProjectEntity.fromJson(data)));
