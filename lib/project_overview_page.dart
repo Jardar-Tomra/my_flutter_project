@@ -15,6 +15,12 @@ class ProjectOverviewPage extends StatelessWidget {
     required this.project,
   });
 
+  void _save(BuildContext context, Project updatedProject) {
+    final bloc = context.read<ProjectBloc>();
+    bloc.add(RefreshProjects());
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -22,125 +28,130 @@ class ProjectOverviewPage extends StatelessWidget {
       child: BlocBuilder<ProjectBloc, ProjectState>(
         builder: (context, state) {
           final currentProject = state is ProjectUpdatedState ? state.project : project;
-
-          final totalDonations = currentProject.donations.length.toDouble();
-
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(currentProject.title),
-            ),
-            body: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Display the image at the top
-                  Image.network(
-                    currentProject.imageUrl,
-                    width: double.infinity,
-                    height: 300,
-                    fit: BoxFit.cover,
-                    alignment: Alignment.topCenter,
-                  ),
-                  const SizedBox(height: 16),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Row(
-                      children: [
-                        Icon(currentProject.icon, size: 48, color: Theme.of(context).primaryColor),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: Text(
-                            currentProject.title,
-                            style: AppTextStyles.titleLarge,
+      
+          return WillPopScope(
+            onWillPop: () => Future(() {
+              print("Is popping back");
+              _save(context, currentProject);
+              return true;
+            }),
+            child: Scaffold(
+              appBar: AppBar(
+                title: Text(currentProject.title),
+              ),
+              body: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Display the image at the top
+                    Image.network(
+                      currentProject.imageUrl,
+                      width: double.infinity,
+                      height: 300,
+                      fit: BoxFit.cover,
+                      alignment: Alignment.topCenter,
+                    ),
+                    const SizedBox(height: 16),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Row(
+                        children: [
+                          Icon(currentProject.icon, size: 48, color: Theme.of(context).primaryColor),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Text(
+                              currentProject.title,
+                              style: AppTextStyles.titleLarge,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Text(
-                      currentProject.description,
-                      style: AppTextStyles.bodyMedium,
+                    const SizedBox(height: 16),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Text(
+                        currentProject.description,
+                        style: AppTextStyles.bodyMedium,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(
-                              currentProject.icon,
-                              size: 40,
-                              color: Theme.of(context).primaryColor,
-                            ),
-                            const SizedBox(width: 16),
-                            Expanded(
-                              child: Text(
-                                currentProject.title,
-                                style: AppTextStyles.titleLarge,
+                    const SizedBox(height: 16),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(
+                                currentProject.icon,
+                                size: 40,
+                                color: Theme.of(context).primaryColor,
                               ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          'Total Donations: \$${currentProject.getTotalDonations().toStringAsFixed(2)}',
-                          style: AppTextStyles.bodyLarge,
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'Duration: ${currentProject.startDate.toLocal().toShortDateString()} - ${currentProject.endDate.toLocal().toShortDateString()}',
-                          style: AppTextStyles.bodySmall,
-                        ),
-                        const SizedBox(height: 16),
-                        const Text(
-                          'Donation Tracker:',
-                          style: AppTextStyles.sectionHeader,
-                        ),
-                        const SizedBox(height: 8),
-                        BlocBuilder<ProjectBloc, ProjectState>(
-                          builder: (context, state) {
-                            final updatedProject = state is ProjectUpdatedState ? state.project : currentProject;
-
-                            if (updatedProject.donations.isEmpty) {
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    'No donations have been made yet.',
-                                    style: AppTextStyles.italicGrey,
-                                  ),
-                                  const SizedBox(height: 8),
-                                  DonationButton(
-                                    projectId: updatedProject.id,
-                                    amount: 50.0, // Example amount
-                                    donations: updatedProject.donations,
-                                  ),
-                                ],
-                              );
-                            }
-
-                            return ProjectTracker.fromProject(updatedProject);
-                          },
-                        ),
-                      ],
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: Text(
+                                  currentProject.title,
+                                  style: AppTextStyles.titleLarge,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                            'Total Donations: \$${currentProject.getTotalDonations().toStringAsFixed(2)}',
+                            style: AppTextStyles.bodyLarge,
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Duration: ${currentProject.startDate.toLocal().toShortDateString()} - ${currentProject.endDate.toLocal().toShortDateString()}',
+                            style: AppTextStyles.bodySmall,
+                          ),
+                          const SizedBox(height: 16),
+                          const Text(
+                            'Donation Tracker:',
+                            style: AppTextStyles.sectionHeader,
+                          ),
+                          const SizedBox(height: 8),
+                          BlocBuilder<ProjectBloc, ProjectState>(
+                            builder: (context, state) {
+                              final updatedProject = state is ProjectUpdatedState ? state.project : currentProject;
+                  
+                              if (updatedProject.donations.isEmpty) {
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'No donations have been made yet.',
+                                      style: AppTextStyles.italicGrey,
+                                    ),
+                                    const SizedBox(height: 8),
+                                    DonationButton(
+                                      projectId: updatedProject.id,
+                                      amount: 50.0, // Example amount
+                                      donations: updatedProject.donations,
+                                    ),
+                                  ],
+                                );
+                              }
+                  
+                              return ProjectTracker.fromProject(updatedProject);
+                            },
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: DonationButton(
-                      projectId: currentProject.id,
-                      amount: 50.0, // Example amount
-                      donations: currentProject.donations,
+                    const SizedBox(height: 16),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: DonationButton(
+                        projectId: currentProject.id,
+                        amount: 50.0, // Example amount
+                        donations: currentProject.donations,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           );

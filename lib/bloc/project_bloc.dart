@@ -12,6 +12,14 @@ class UpdateProjects extends ProjectEvent {
   UpdateProjects(this.projects);
 }
 
+class UpdateProject extends ProjectEvent {
+  final Project project;
+
+  UpdateProject(this.project);
+}
+
+class RefreshProjects extends ProjectEvent {}
+
 class AddDonationEvent extends ProjectEvent {
   final String projectId;
   final double amount;
@@ -35,6 +43,7 @@ class ProjectUpdatedState extends ProjectState {
   ProjectUpdatedState(this.project);
 }
 
+
 class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
   final List<Project> projects;
 
@@ -46,6 +55,14 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
 
     on<UpdateProjects>((event, emit) {
       emit(ProjectLoaded(event.projects));
+    });
+
+    on<RefreshProjects>((event, emit) {
+      emit(ProjectLoaded(projects));
+    });
+
+    on<UpdateProject>((event, emit) {
+      emit(ProjectLoaded(projects));
     });
 
     on<AddDonationEvent>((event, emit) {
