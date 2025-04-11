@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:my_flutter_project/bloc/project.dart';
 
-class ProjectTracker extends StatelessWidget {
+class ProjectDonationTracker extends StatelessWidget {
   final List<DateTime> allDays;
   final List<DateTime> donationDays;
 
-  const ProjectTracker({
+  const ProjectDonationTracker({
     super.key,
     required this.allDays,
     required this.donationDays,
   });
 
-  factory ProjectTracker.fromProject(Project project) {
+  factory ProjectDonationTracker.fromProject(Project project) {
     final allDays = List.generate(7, (index) {
       final startDate = project.startDate;
       return startDate.add(Duration(days: index));
@@ -19,7 +19,7 @@ class ProjectTracker extends StatelessWidget {
 
     final donationDays = project.donations().map((donation) => donation.date).toList();
 
-    return ProjectTracker(
+    return ProjectDonationTracker(
       allDays: allDays,
       donationDays: donationDays,
     );

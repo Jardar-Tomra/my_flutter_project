@@ -60,4 +60,20 @@ class Project {
   bool isCompleted() {
     return DateTime.now().isAfter(endDate);
   }
+
+  void donate(double amount) {
+    if (amount <= 0) {
+      throw ArgumentError('Donation amount must be greater than zero.');
+    }
+    repository.addDonationForToday(userId, id, amount);
+  }
+
+  bool hasDonatedToday() {
+    final today = DateTime.now();
+    return donations().any((donation) =>
+        donation.date.year == today.year &&
+        donation.date.month == today.month &&
+        donation.date.day == today.day);
+  }
+
 }

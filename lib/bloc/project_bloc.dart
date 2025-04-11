@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_flutter_project/bloc/project.dart';
 import 'package:my_flutter_project/datamodel/repository.dart' as repository_entity;
@@ -48,6 +49,7 @@ class ProjectUpdatedState extends ProjectState {
 
 class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
   final repository_entity.Repository repo;
+  List<Project> projects = [];
   final UserEntity user = GetIt.instance.get<UserEntity>();
 
   ProjectBloc(this.repo) : super(ProjectInitial()) {
@@ -69,13 +71,22 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
     });
 
     on<AddDonationEvent>((event, emit) {
-      repo.addDonationForToday(event.projectId, user.id, event.amount);
+      projects.firstWhere((project) => project.id == event.projectId).donate(event.amount);
       emit(ProjectUpdatedState( Project.fromEntity(repo, repo.getProjectById(event.projectId), user.id)));
     });
   }
 
   List<Project> getProjects() {
-    return repo.projects.map((project) => Project.fromEntity(repo, project, user.id)).toList();
+    projects = repo.projects.map((project) => Project.fromEntity(repo, project, user.id)).toList();
+    return projects;
   }
 }
 
+extension ProjectBlocExtension on BuildContext {
+  void donate(String projectId, double amount) {
+    read<ProjectBloc>().add(AddDonationEvent(
+      projectId: projectId,
+      amount: 10.0,
+    ));
+  }
+}

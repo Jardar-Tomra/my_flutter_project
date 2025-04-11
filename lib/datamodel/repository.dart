@@ -1,13 +1,18 @@
+import 'package:my_flutter_project/extensions/date_time_formatting.dart';
+import 'package:my_flutter_project/extensions/list_extensions.dart';
+import 'package:logger/logger.dart';
+
 import 'user_entity.dart';
 import 'project_entity.dart' as project_entity;
 import 'donation_entity.dart' as donation_entity;
 import 'project_day_entity.dart' as project_day_entity;
 import 'dart:convert';
-import 'dart:io';
 import 'user_project_assignment_entity.dart' as user_project_assignment_entity;
 import 'package:flutter/services.dart';
 
 class Repository {
+  final Logger _logger = Logger();
+
   final List<UserEntity> users;
   final List<project_entity.ProjectEntity> projects;
   final List<project_day_entity.ProjectDayEntity> projectDays;
@@ -33,56 +38,81 @@ class Repository {
   }
 
   List<donation_entity.DonationEntity> getDonationsByUser(String userId) {
+    _logger.i('Fetching donations for user: $userId');
     return donations.where((donation) => donation.userId == userId).toList();
   }
 
   List<donation_entity.DonationEntity> getDonationsForProject(String projectId) {
+    _logger.i('Fetching donations for project: $projectId');
     return donations.where((donation) => donation.projectId == projectId).toList();
   }
 
   List<donation_entity.DonationEntity> getDonationsForProjectDay(String projectDayId) {
+    _logger.i('Fetching donations for project day: $projectDayId');
     return donations.where((donation) => donation.projectDayId == projectDayId).toList();
   }
 
   UserEntity getUserById(String userId) {
+    _logger.i('Fetching user by ID: $userId');
     return users.firstWhere((user) => user.id == userId, orElse: () => throw ArgumentError('User not found'));
   }
 
   project_entity.ProjectEntity getProjectById(String projectId) {
+    _logger.i('Fetching project by ID: $projectId');
     return projects.firstWhere((project) => project.id == projectId, orElse: () => throw ArgumentError('Project not found'));
   }
 
   project_day_entity.ProjectDayEntity getProjectDayById(String projectDayId) {
+    _logger.i('Fetching project day by ID: $projectDayId');
     return projectDays.firstWhere((day) => day.id == projectDayId, orElse: () => throw ArgumentError('ProjectDay not found'));
   }
 
-  void addDonationForToday(String projectDayId, String userId, double amount) {
-    final today = DateTime.now();
-    final day = DateTime(today.year, today.month, today.day);
+  project_day_entity.ProjectDayEntity getProjectDayByDate(String projectId, DateTime date) {
+    _logger.i('Fetching project day for project: $projectId on date: $date');
+    _logger.i('Total project days: ${projectDays.length}');
+    return projectDays.firstWhere((day) => day.projectId == projectId && day.day.isSameDay(date), orElse: () => throw ArgumentError('ProjectDay not found'));
+  }
+
+  void addDonationForToday(String projectId, String userId, double amount) {
+    _logger.i('Adding donation for today. Project: $projectId, User: $userId, Amount: $amount');
+    final today = DateTime.now().dateOnly();
+
+    var d = donations.firstOrNullWhere((donation) =>
+        donation.userId == userId &&
+        donation.projectId == projectId &&
+        donation.date.isSameDay(today));
+    if (d != null) {
+      throw ArgumentError('Donation already exists for today');
+    }
+    var pd = getProjectDayByDate(projectId, today);
+
     final donation = donation_entity.DonationEntity(
       id: '',
       userId: userId,
-      projectId: getProjectDayById(projectDayId).projectId,
-      projectDayId: projectDayId,
-      date: day,
+      projectId: projectId,
+      projectDayId: pd.id,
+      date: today,
       amount: amount,
     );
     donations.add(donation);
   }
 
   double getTotalDonationsForProject(String projectId) {
+    _logger.i('Calculating total donations for project: $projectId');
     return projectDays
         .where((day) => day.projectId == projectId)
         .fold(0, (sum, day) => getTotalDonationsForProjectDay(day.id));
   }
 
   double getTotalDonationsForProjectDay(String projectDayId) {
+    _logger.i('Calculating total donations for project day: $projectDayId');
     return donations
         .where((donation) => donation.projectDayId == projectDayId)
         .fold(0, (sum, donation) => sum + donation.amount);
   }
 
   List<donation_entity.DonationEntity> getDonationsByUserForProject(String userId, String projectId) {
+    _logger.i('Fetching donations for user: $userId in project: $projectId');
     return donations
         .where((donation) =>
             donation.userId == userId && donation.projectId == projectId)
@@ -91,6 +121,7 @@ class Repository {
 
   List<donation_entity.DonationEntity> getDonationsByUserForProjectDay(
       String userId, String projectDayId) {
+    _logger.i('Fetching donations for user: $userId in project day: $projectDayId');
     return donations
         .where((donation) =>
             donation.userId == userId && donation.projectDayId == projectDayId)
@@ -98,6 +129,7 @@ class Repository {
   }
 
   List<project_entity.ProjectEntity> getAssignedProjectsForUser(String userId) {
+    _logger.i('Fetching assigned projects for user: $userId');
     final assignedProjectIds = userProjectAssignments
         .where((assignment) => assignment.userId == userId)
         .map((assignment) => assignment.projectId)
@@ -107,6 +139,7 @@ class Repository {
   }
 
   List<project_entity.ProjectEntity> getUnassignedProjectsForUser(String userId) {
+    _logger.i('Fetching unassigned projects for user: $userId');
     final assignedProjectIds = userProjectAssignments
         .where((assignment) => assignment.userId == userId)
         .map((assignment) => assignment.projectId)
@@ -116,6 +149,7 @@ class Repository {
   }
 
   Future<void> loadData() async {
+    _logger.i('Loading data from assets');
     final projectJson = await rootBundle.loadString('assets/data/projects.json');
     final projectDayJson = await rootBundle.loadString('assets/data/project_days.json');
     final donationJson = await rootBundle.loadString('assets/data/donations.json');
@@ -135,6 +169,7 @@ class Repository {
   }
 
   // Future<void> saveData() async {
+  //   _logger.i('Saving data to files');
   //   final projectJson = jsonEncode(projects.map((p) => p.toJson()).toList());
   //   final projectDayJson = jsonEncode(projectDays.map((pd) => pd.toJson()).toList());
   //   final donationJson = jsonEncode(donations.map((d) => d.toJson()).toList());

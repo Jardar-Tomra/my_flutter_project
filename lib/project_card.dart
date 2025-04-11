@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_flutter_project/bloc/project.dart';
-import 'package:my_flutter_project/project_tracker.dart';
+import 'package:my_flutter_project/widgets/project_donation_tracker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_flutter_project/bloc/project_bloc.dart';
 import 'package:my_flutter_project/extensions/date_time_formatting.dart';
@@ -78,7 +78,7 @@ class ProjectCard extends StatelessWidget {
                         style: AppTextStyles.sectionHeader,
                       ),
                       const SizedBox(height: 8),
-                      ProjectTracker.fromProject(updatedProject),
+                      ProjectDonationTracker.fromProject(updatedProject),
                     ],
                   ],
                 ),

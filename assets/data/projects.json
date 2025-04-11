@@ -14,8 +14,8 @@
     "description": "Ensuring access to education for children in underprivileged areas.",
     "icon": "Icons.school",
     "imageUrl": "assets/images/education.png",
-    "startDate": "2025-02-01T00:00:00",
-    "endDate": "2025-11-30T00:00:00"
+    "startDate": "2025-04-09T00:00:00",
+    "endDate": "2025-04-30T00:00:00"
   },
   {
     "id": "3",
@@ -23,7 +23,7 @@
     "description": "Providing healthcare services to remote areas.",
     "icon": "Icons.local_hospital",
     "imageUrl": "assets/images/healthcare.png",
-    "startDate": "2025-03-01T00:00:00",
-    "endDate": "2025-10-31T00:00:00"
+    "startDate": "2025-08-01T00:00:00",
+    "endDate": "2025-08-20T00:00:00"
   }
 ]

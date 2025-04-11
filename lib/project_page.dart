@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_flutter_project/bloc/project.dart';
 import 'package:my_flutter_project/extensions/date_time_formatting.dart';
 import 'package:my_flutter_project/styles/app_text_styles.dart';
-import 'project_tracker.dart'; // Import the ProjectTracker widget
+import 'widgets/project_donation_tracker.dart'; // Import the ProjectTracker widget
 import '../bloc/project_bloc.dart';
 import '../widgets/donation_button.dart';
 
@@ -23,7 +23,8 @@ class ProjectPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProjectBloc, ProjectState>(      builder: (context, state) {
+    return BlocBuilder<ProjectBloc, ProjectState>(      
+      builder: (context, state) {
         final currentProject = state is ProjectUpdatedState ? state.project : project;
 
         return WillPopScope(
@@ -92,31 +93,7 @@ class ProjectPage extends StatelessWidget {
                           style: AppTextStyles.sectionHeader,
                         ),
                         const SizedBox(height: 8),
-                        BlocBuilder<ProjectBloc, ProjectState>(
-                          builder: (context, state) {
-                            final updatedProject = state is ProjectUpdatedState ? state.project : currentProject;
-                
-                            if (updatedProject.donations().isEmpty) {
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    'No donations have been made yet.',
-                                    style: AppTextStyles.italicGrey,
-                                  ),
-                                  const SizedBox(height: 8),
-                                  DonationButton(
-                                    projectId: updatedProject.id,
-                                    amount: 50.0, // Example amount
-                                    donations: updatedProject.donations(),
-                                  ),
-                                ],
-                              );
-                            }
-                
-                            return ProjectTracker.fromProject(updatedProject);
-                          },
-                        ),
+                        ProjectDonationTracker.fromProject(project),
                       ],
                     ),
                   ),
@@ -124,9 +101,8 @@ class ProjectPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: DonationButton(
-                      projectId: currentProject.id,
+                      project: project,
                       amount: 50.0, // Example amount
-                      donations: currentProject.donations(),
                     ),
                   ),
                 ],

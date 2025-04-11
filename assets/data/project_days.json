@@ -19,5 +19,54 @@
     "prayer": "May this heal the sick.",
     "projectId": "3",
     "day": "2025-03-10T00:00:00"
+  },
+  {
+    "id": "pd4",
+    "text": "Day 2: Understanding water scarcity",
+    "prayer": "May we find solutions together.",
+    "projectId": "1",
+    "day": "2025-04-09T00:00:00"
+  },
+  {
+    "id": "pd5",
+    "text": "Day 3: Promoting clean water initiatives",
+    "prayer": "May this effort bring hope.",
+    "projectId": "1",
+    "day": "2025-04-10T00:00:00"
+  },
+  {
+    "id": "pd6",
+    "text": "Day 4: Educating communities on water safety",
+    "prayer": "May knowledge empower change.",
+    "projectId": "1",
+    "day": "2025-04-11T00:00:00"
+  },
+  {
+    "id": "pd7",
+    "text": "Day 5: Building sustainable water systems",
+    "prayer": "May this work last for generations.",
+    "projectId": "1",
+    "day": "2025-04-12T00:00:00"
+  },
+  {
+    "id": "pd8",
+    "text": "Day 6: Raising awareness about water pollution",
+    "prayer": "May we protect our resources.",
+    "projectId": "1",
+    "day": "2025-04-13T00:00:00"
+  },
+  {
+    "id": "pd9",
+    "text": "Day 7: Supporting clean water access for all",
+    "prayer": "May everyone have what they need.",
+    "projectId": "1",
+    "day": "2025-04-14T00:00:00"
+  },
+  {
+    "id": "pd10",
+    "text": "Day 8: Reflecting on the impact of clean water",
+    "prayer": "May we continue to make a difference.",
+    "projectId": "1",
+    "day": "2025-04-15T00:00:00"
   }
 ]

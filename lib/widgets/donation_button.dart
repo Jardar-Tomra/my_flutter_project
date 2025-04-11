@@ -1,31 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_flutter_project/bloc/project.dart';
 import 'package:my_flutter_project/datamodel/donation_entity.dart';
 import '../bloc/project_bloc.dart';
 
 class DonationButton extends StatelessWidget {
-  final String projectId;
-  final double amount;
-  final List<DonationEntity> donations;
+  final Project project;
+  final double amount; // Default donation amount
 
   const DonationButton({
     super.key,
-    required this.projectId,
-    required this.amount,
-    required this.donations,
+    required this.project,
+    this.amount = 10.0,
   });
 
-  bool _hasDonatedToday() {
-    final today = DateTime.now();
-    return donations.any((donation) =>
-        donation.date.year == today.year &&
-        donation.date.month == today.month &&
-        donation.date.day == today.day);
-  }
 
   @override
   Widget build(BuildContext context) {
-    final hasDonatedToday = _hasDonatedToday();
+    final hasDonatedToday = project.hasDonatedToday();
 
     if (hasDonatedToday) {
       return const Text(
@@ -40,12 +32,8 @@ class DonationButton extends StatelessWidget {
 
     return ElevatedButton(
       onPressed: () {
-        context.read<ProjectBloc>().add(
-              AddDonationEvent(
-                projectId: projectId,
-                amount: amount,
-              ),
-            );
+        context.donate(project.id, 10.0);
+
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Thank you for your donation!'),
