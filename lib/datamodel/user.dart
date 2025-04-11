@@ -56,4 +56,18 @@ class User {
   double getTotalDonationsForProject(String projectTitle) {
     return totalDonationsPerProject[projectTitle] ?? 0.0;
   }
+
+  // Activate a project
+  void activateProject(String projectTitle) {
+    if (!activeProjects.contains(projectTitle)) {
+      activeProjects.add(projectTitle);
+    }
+  }
+
+  // Deactivate a project
+  void deactivateProject(String projectTitle) {
+    activeProjects.remove(projectTitle);
+    totalDonationsPerProject.remove(projectTitle);
+    donations.removeWhere((donation) => donation['projectTitle'] == projectTitle);
+  }
 }
