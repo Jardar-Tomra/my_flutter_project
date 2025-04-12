@@ -3,7 +3,7 @@
     "id": "1",
     "title": "Clean Water Initiative",
     "description": "Providing clean water to communities in need.",
-    "icon": "Icons.water",
+    "icon": "Icons.clean_hands",
     "imageUrl": "assets/images/clean_water.png",
     "startDate": "2025-04-07T00:00:00",
     "endDate": "2025-05-01T00:00:00"
@@ -21,7 +21,7 @@
     "id": "3",
     "title": "Healthcare Access",
     "description": "Providing healthcare services to remote areas.",
-    "icon": "Icons.local_hospital",
+    "icon": "Icons.health_and_safety",
     "imageUrl": "assets/images/healthcare.png",
     "startDate": "2025-08-01T00:00:00",
     "endDate": "2025-08-20T00:00:00"

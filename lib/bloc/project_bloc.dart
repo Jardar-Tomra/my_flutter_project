@@ -71,8 +71,9 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
     });
 
     on<AddDonationEvent>((event, emit) {
-      projects.firstWhere((project) => project.id == event.projectId).donate(event.amount);
-      emit(ProjectUpdatedState( Project.fromEntity(repo, repo.getProjectById(event.projectId), user.id)));
+      var p = projects.firstWhere((project) => project.id == event.projectId);
+      p.donate(event.amount);
+      emit(ProjectUpdatedState( p ));
     });
   }
 
