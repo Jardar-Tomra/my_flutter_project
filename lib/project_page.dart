@@ -7,6 +7,7 @@ import 'package:my_flutter_project/widgets/project_day_card.dart';
 import 'widgets/project_donation_tracker.dart'; // Import the ProjectTracker widget
 import '../bloc/project_bloc.dart';
 import '../widgets/donation_button.dart';
+import '../widgets/date_badge.dart'; // Import the DateBadge widget
 
 class ProjectPage extends StatelessWidget {
   final Project project;
@@ -53,29 +54,44 @@ class ProjectPage extends StatelessWidget {
 
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Text(
-                      currentProject.description,
-                      style: AppTextStyles.bodyMedium,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Column(
+                    child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Total Donations: \$${currentProject.totalDonations.toStringAsFixed(2)}',
-                          style: AppTextStyles.bodyLarge,
+                        Expanded(
+                          flex: 2,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                currentProject.description,
+                                style: AppTextStyles.bodyMedium,
+                              ),
+                              const SizedBox(height: 16),
+                              DonationButton(
+                                project: project,
+                                amount: 50.0, // Example amount
+                              ),
+                            ],
+                          ),
                         ),
-                        Text(
-                          'Duration: ${currentProject.startDate.toLocal().toShortDateString()} - ${currentProject.endDate.toLocal().toShortDateString()}',
-                          style: AppTextStyles.bodySmall,
-                        ),
-                        const SizedBox(height: 16),
-                        DonationButton(
-                          project: project,
-                          amount: 50.0, // Example amount
+                        const SizedBox(width: 16),
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              DateBadge(
+                                startDate: currentProject.startDate,
+                                endDate: currentProject.endDate,
+                                size: BadgeSize.small,
+                              ),
+                              const SizedBox(height: 16),
+                              Text(
+                                'Total Donations: \$${currentProject.totalDonations.toStringAsFixed(2)}',
+                                style: AppTextStyles.bodyLarge,
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -86,11 +102,6 @@ class ProjectPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'Project Days:',
-                          style: AppTextStyles.sectionHeader,
-                        ),
-                        const SizedBox(height: 8),
                         ...project.getProjectDays().map((day) {
                           return Padding(
                             padding: const EdgeInsets.symmetric(vertical: 4.0),

@@ -31,6 +31,14 @@ class DonationButton extends StatelessWidget {
     }
 
     return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0), // Rounded corners
+        ),
+        backgroundColor: Colors.blueAccent, // Button background color
+        elevation: 5.0, // Shadow effect
+      ),
       onPressed: () {
         context.donate(project.id, 10.0);
 
@@ -40,7 +48,14 @@ class DonationButton extends StatelessWidget {
           ),
         );
       },
-      child: const Text('Donate Now'),
+      child: const Text(
+        'Donate Now',
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          color: Colors.white, // Text color
+        ),
+      ),
     );
   }
 }

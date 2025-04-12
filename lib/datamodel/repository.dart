@@ -173,6 +173,16 @@ class Repository {
     return projectDays.where((day) => day.projectId == id).toList();
   }
 
+  getProjects() {
+    _logger.i('Fetching all projects');
+    return projects;
+  }
+
+  getUsers() {
+    _logger.i('Fetching all users');
+    return users;
+  }
+
   // Future<void> saveData() async {
   //   _logger.i('Saving data to files');
   //   final projectJson = jsonEncode(projects.map((p) => p.toJson()).toList());

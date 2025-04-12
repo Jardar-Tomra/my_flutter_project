@@ -16,8 +16,24 @@ class ProjectDayCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final DateTime today = DateTime.now();
+    final bool isPast = day.isBefore(today);
+    final bool isFuture = day.isAfter(today);
+
+    Color cardColor;
+    if (hasDonated) {
+      cardColor = Colors.green.shade100; // Green-ish for donated days
+    } else if (isPast) {
+      cardColor = Colors.blue.shade100; // Blue-ish for past days
+    } else if (isFuture) {
+      cardColor = Colors.grey.shade200; // Grey-ish for future days
+    } else {
+      cardColor = Colors.white; // Default color
+    }
+
     return Card(
       margin: const EdgeInsets.all(8.0),
+      color: cardColor, // Set the card's background color
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

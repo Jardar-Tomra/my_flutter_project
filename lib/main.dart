@@ -24,7 +24,6 @@ Future<void> setupDependencies() async {
   // Register the current user object
   final currentUser = repository.getUserById(currentUserId);
   getIt.registerSingleton<UserEntity>(currentUser);
-  print("setupDependencies: currentUserId: $currentUserId, currentUser: $currentUser");
 }
 
 void main() async {
@@ -50,7 +49,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => GetIt.instance<BlocFactory>().createUserBloc()..add(LoadUsers())),
       ],
       child: MaterialApp(
-        title: 'My Flutter Project',
+        title: 'Charity Donation App',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
