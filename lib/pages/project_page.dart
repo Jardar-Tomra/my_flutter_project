@@ -41,7 +41,7 @@ class ProjectPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Display the image at the top
-                  Image.network(
+                  Image.asset(
                     currentProject.imageUrl,
                     width: double.infinity,
                     height: 300,
