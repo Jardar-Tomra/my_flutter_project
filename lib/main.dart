@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:logger/logger.dart';
 import 'package:my_flutter_project/bloc/bloc_factory.dart';
 import 'package:my_flutter_project/datamodel/user_entity.dart';
 import 'bloc/project_bloc.dart';
