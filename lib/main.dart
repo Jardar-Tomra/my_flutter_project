@@ -6,7 +6,7 @@ import 'package:my_flutter_project/bloc/bloc_factory.dart';
 import 'package:my_flutter_project/datamodel/user_entity.dart';
 import 'bloc/project_bloc.dart';
 import 'bloc/user_bloc.dart';
-import 'home_page.dart';
+import 'pages/home_page.dart';
 import 'datamodel/repository.dart' as repository_entity;
 
 final getIt = GetIt.instance;

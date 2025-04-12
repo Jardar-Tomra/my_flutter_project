@@ -4,10 +4,10 @@ import 'package:my_flutter_project/bloc/project.dart';
 import 'package:my_flutter_project/extensions/date_time_formatting.dart';
 import 'package:my_flutter_project/styles/app_text_styles.dart';
 import 'package:my_flutter_project/widgets/project_day_card.dart';
-import 'widgets/project_donation_tracker.dart'; // Import the ProjectTracker widget
-import '../bloc/project_bloc.dart';
-import '../widgets/donation_button.dart';
-import '../widgets/date_badge.dart'; // Import the DateBadge widget
+import '../widgets/project_donation_tracker.dart'; // Import the ProjectTracker widget
+import '../../bloc/project_bloc.dart';
+import '../../widgets/donation_button.dart';
+import '../../widgets/date_badge.dart'; // Import the DateBadge widget
 
 class ProjectPage extends StatelessWidget {
   final Project project;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_flutter_project/bloc/project.dart';
-import 'bloc/project_bloc.dart';
+import '../bloc/project_bloc.dart';
 import 'project_card.dart';
 
 class ProjectListWidget extends StatelessWidget {
