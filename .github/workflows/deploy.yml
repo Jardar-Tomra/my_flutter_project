@@ -27,7 +27,7 @@ jobs:
       run: flutter pub get
 
     - name: Build web app
-      run: flutter build web --release --base-href "\$FLUTTER_BASE_HREF"
+      run: flutter build web --release --base-href "$FLUTTER_BASE_HREF"
       env:
         FLUTTER_BASE_HREF: "/${{ github.event.repository.name }}/"
 
