@@ -32,6 +32,9 @@ jobs:
     - name: Update base href in index.html
       run: sed -i 's|\$FLUTTER_BASE_HREF|https://jardar-tomra.github.io/my_flutter_project/|g' build/web/index.html
 
+    - name: Create .nojekyll file
+      run: echo > build/web/.nojekyll
+
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
