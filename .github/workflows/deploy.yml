@@ -29,6 +29,9 @@ jobs:
     - name: Build web app
       run: flutter build web --release
 
+    - name: Update base href in index.html
+      run: sed -i 's|\$FLUTTER_BASE_HREF|https://jardar-tomra.github.io/my_flutter_project/|g' build/web/index.html
+
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
