@@ -168,6 +168,11 @@ class Repository {
         .map((data) => user_project_assignment_entity.UserProjectAssignmentEntity.fromJson(data)));
   }
 
+  List<project_day_entity.ProjectDayEntity> getProjectDaysByProjectId(String id) {
+    _logger.i('Fetching project days for project ID: $id');
+    return projectDays.where((day) => day.projectId == id).toList();
+  }
+
   // Future<void> saveData() async {
   //   _logger.i('Saving data to files');
   //   final projectJson = jsonEncode(projects.map((p) => p.toJson()).toList());

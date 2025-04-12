@@ -71,6 +71,13 @@ class ProjectCard extends StatelessWidget {
                       'Duration: ${updatedProject.startDate.toLocal().toShortDateString()} - ${updatedProject.endDate.toLocal().toShortDateString()}',
                       style: AppTextStyles.bodySmall,
                     ),
+                    const SizedBox(height: 16),
+                    ElevatedButton(
+                      onPressed: () {
+                        project.donate(50.0); // Example donation amount
+                      },
+                      child: const Text('Donate \$50'),
+                    ),
                     if (project.isAssigned()) ...[
                       const SizedBox(height: 16),
                       const Text(

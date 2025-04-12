@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_flutter_project/bloc/project.dart';
 import 'package:my_flutter_project/extensions/date_time_formatting.dart';
 import 'package:my_flutter_project/styles/app_text_styles.dart';
+import 'package:my_flutter_project/widgets/project_day_card.dart';
 import 'widgets/project_donation_tracker.dart'; // Import the ProjectTracker widget
 import '../bloc/project_bloc.dart';
 import '../widgets/donation_button.dart';
@@ -49,22 +50,7 @@ class ProjectPage extends StatelessWidget {
                     alignment: Alignment.topCenter,
                   ),
                   const SizedBox(height: 16),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Row(
-                      children: [
-                        Icon(currentProject.icon, size: 48, color: Theme.of(context).primaryColor),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: Text(
-                            currentProject.title,
-                            style: AppTextStyles.titleLarge,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 16),
+
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Text(
@@ -82,27 +68,44 @@ class ProjectPage extends StatelessWidget {
                           'Total Donations: \$${currentProject.totalDonations.toStringAsFixed(2)}',
                           style: AppTextStyles.bodyLarge,
                         ),
-                        const SizedBox(height: 8),
                         Text(
                           'Duration: ${currentProject.startDate.toLocal().toShortDateString()} - ${currentProject.endDate.toLocal().toShortDateString()}',
                           style: AppTextStyles.bodySmall,
                         ),
                         const SizedBox(height: 16),
-                        const Text(
-                          'Donation Tracker:',
-                          style: AppTextStyles.sectionHeader,
+                        DonationButton(
+                          project: project,
+                          amount: 50.0, // Example amount
                         ),
-                        const SizedBox(height: 8),
-                        ProjectDonationTracker.fromProject(project),
                       ],
                     ),
                   ),
                   const SizedBox(height: 16),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: DonationButton(
-                      project: project,
-                      amount: 50.0, // Example amount
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Project Days:',
+                          style: AppTextStyles.sectionHeader,
+                        ),
+                        const SizedBox(height: 8),
+                        ...project.getProjectDays().map((day) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 4.0),
+                            child: SizedBox(
+                              width: double.infinity,
+                              child: ProjectDayCard(
+                                text: day.text,
+                                prayer: day.prayer,
+                                day: day.day,
+                                hasDonated: currentProject.hasDonatedFor(day), // Provide the required parameter
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ],
                     ),
                   ),
                 ],

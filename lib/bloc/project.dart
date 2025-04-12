@@ -1,4 +1,5 @@
 import 'package:my_flutter_project/datamodel/donation_entity.dart';
+import 'package:my_flutter_project/datamodel/project_day_entity.dart';
 import 'package:my_flutter_project/datamodel/project_entity.dart';
 import 'package:my_flutter_project/datamodel/repository.dart';
 import 'package:flutter/widgets.dart';
@@ -74,6 +75,14 @@ class Project {
         donation.date.year == today.year &&
         donation.date.month == today.month &&
         donation.date.day == today.day);
+  }
+
+  List<ProjectDayEntity> getProjectDays() {
+    return repository.getProjectDaysByProjectId(id);
+  }
+
+  bool hasDonatedFor(ProjectDayEntity day) {
+    return donations().any((donation) => donation.projectDayId == day.id);
   }
 
 }
