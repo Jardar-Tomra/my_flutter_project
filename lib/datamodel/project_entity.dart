@@ -33,12 +33,12 @@ class ProjectEntity {
   
   static IconData _mapStringToIcon(String iconName) {
     switch (iconName) {
-      case 'Icons.home':
-        return Icons.home;
+      case 'Icons.clean_hands':
+        return Icons.clean_hands;
       case 'Icons.work':
         return Icons.work;
-      case 'Icons.school':
-        return Icons.school;
+      case 'Icons.health_and_safety':
+        return Icons.health_and_safety;
       default:
         return Icons.help; // Default icon
     }
