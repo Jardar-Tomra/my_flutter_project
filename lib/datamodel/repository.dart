@@ -160,6 +160,7 @@ class Repository {
         .map((data) => project_entity.ProjectEntity.fromJson(data)));
     projectDays.addAll((jsonDecode(projectDayJson) as List)
         .map((data) => project_day_entity.ProjectDayEntity.fromJson(data)));
+    // Ensure the `summary` field is correctly loaded from the JSON data.
     donations.addAll((jsonDecode(donationJson) as List)
         .map((data) => donation_entity.DonationEntity.fromJson(data)));
     users.addAll((jsonDecode(userJson) as List)

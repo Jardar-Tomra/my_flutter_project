@@ -106,8 +106,9 @@ class ProjectPage extends StatelessWidget {
                             child: SizedBox(
                               width: double.infinity,
                               child: ProjectDayCard(
-                                text: day.text,
+                                text: day.title,
                                 prayer: day.prayer,
+                                story: day.story,
                                 day: day.day,
                                 hasDonated: currentProject.hasDonatedFor(day), // Provide the required parameter
                               ),

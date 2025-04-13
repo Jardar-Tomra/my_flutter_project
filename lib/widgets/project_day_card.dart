@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class ProjectDayCard extends StatelessWidget {
   final String text;
   final String prayer;
+  final String story; // New field for the story
   final DateTime day;
   final bool hasDonated; // New property to indicate donation status
 
@@ -10,6 +11,7 @@ class ProjectDayCard extends StatelessWidget {
     Key? key,
     required this.text,
     required this.prayer,
+    required this.story, // Required parameter for the story
     required this.day,
     required this.hasDonated, // Required parameter for donation status
   }) : super(key: key);
@@ -56,8 +58,23 @@ class ProjectDayCard extends StatelessWidget {
             ),
             const SizedBox(height: 8.0),
             Text(
-              'Prayer: $prayer',
+              story, // Display the story
               style: Theme.of(context).textTheme.bodyMedium,
+            ),
+            const SizedBox(height: 8.0),
+            Text(
+              'Prayer:',
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 16.0),
+              child: Text(
+                prayer,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.copyWith(fontStyle: FontStyle.italic),
+              ),
             ),
             const SizedBox(height: 8.0),
             Text(
