@@ -56,7 +56,7 @@ class ProjectPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
-                          flex: 2,
+                          flex: 3,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -65,10 +65,18 @@ class ProjectPage extends StatelessWidget {
                                 style: AppTextStyles.bodyMedium,
                               ),
                               const SizedBox(height: 16),
-                              DonationButton(
+                              Row(
+                                children: [
+                                  Text(
+                                'Total: \$${currentProject.totalDonations.toStringAsFixed(2)}',
+                                style: AppTextStyles.bodyLarge,
+                              ),
+                              const SizedBox(width: 16),
+                                DonationButton(
                                 project: project,
                                 amount: 50.0, // Example amount
                               ),
+                              ]),
                             ],
                           ),
                         ),
@@ -84,17 +92,14 @@ class ProjectPage extends StatelessWidget {
                                 size: BadgeSize.small,
                               ),
                               const SizedBox(height: 16),
-                              Text(
-                                'Total Donations: \$${currentProject.totalDonations.toStringAsFixed(2)}',
-                                style: AppTextStyles.bodyLarge,
-                              ),
+
                             ],
                           ),
                         ),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 8),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Column(
