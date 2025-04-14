@@ -8,7 +8,6 @@ import 'package:my_flutter_project/widgets/custom_dot_effect.dart';
 import 'package:my_flutter_project/widgets/project_day_card.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'; // Import the package
 import '../../bloc/project_bloc.dart';
-import '../../widgets/donation_button.dart';
 import '../../widgets/date_badge.dart'; // Import the DateBadge widget
 import '../../widgets/money_badge.dart'; // Import MoneyBadge
 
@@ -94,11 +93,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                 currentProject.description,
                                 style: AppTextStyles.bodyMedium,
                               ),
-                              const SizedBox(height: 16),
-                              DonationButton(
-                                project: currentProject,
-                                amount: 50.0, // Example amount
-                              ),
+                              const SizedBox(height: 16)
                             ],
                           ),
                         ),
@@ -115,7 +110,7 @@ class _ProjectPageState extends State<ProjectPage> {
                               ),
                               const SizedBox(height: 16),
                               MoneyBadge(
-                                amount: currentProject.totalDonations,
+                                amount: currentProject.totalDonations(),
                               ),
                               const SizedBox(height: 16),
                             ],
@@ -175,11 +170,8 @@ class _ProjectPageState extends State<ProjectPage> {
                               child: SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.8, // Set width to 80% of screen width
                                 child: ProjectDayCard(
-                                  text: day.title,
-                                  prayer: day.prayer,
-                                  story: day.story,
-                                  day: day.day,
-                                  hasDonated: currentProject.hasDonatedFor(day), // Provide the required parameter
+                                  project: currentProject,
+                                  dayEntity: day, // Pass the ProjectDayEntity
                                 ),
                               ),
                             );

@@ -38,7 +38,7 @@ class DonationButton extends StatelessWidget {
         elevation: 5.0, // Shadow effect
       ),
       onPressed: () {
-        context.donate(project.id, 10.0);
+        context.donate(project.id, amount);
 
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -46,9 +46,9 @@ class DonationButton extends StatelessWidget {
           ),
         );
       },
-      child: const Text(
-        'Donate Now',
-        style: TextStyle(
+      child: Text(
+        'Donate \$${amount.toStringAsFixed(0)} now',
+        style: const TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.bold,
           color: Colors.white, // Text color

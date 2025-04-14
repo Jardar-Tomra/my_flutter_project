@@ -54,7 +54,7 @@ class Project {
     return repository.getDonationsByUserForProject(userId, id);
   }
 
-  double get totalDonations {
+  double totalDonations() {
     return donations().fold(0, (sum, donation) => sum + donation.amount);
   }
 

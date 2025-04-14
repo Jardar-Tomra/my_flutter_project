@@ -101,7 +101,7 @@ class ProjectCard extends StatelessWidget {
                               ),
                               const SizedBox(height: 16),
                               MoneyBadge(
-                                amount: updatedProject.totalDonations,
+                                amount: updatedProject.totalDonations(),
                               ),
                             ],
                           ),

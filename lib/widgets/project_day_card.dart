@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
-import 'money_badge.dart'; // Import MoneyBadge
+import 'package:my_flutter_project/bloc/project.dart';
+import 'package:my_flutter_project/datamodel/project_day_entity.dart';
+import 'package:my_flutter_project/extensions/date_time_formatting.dart';
+import 'package:my_flutter_project/widgets/donation_button.dart';
 
 class ProjectDayCard extends StatelessWidget {
-  final String text;
-  final String prayer;
-  final String story; // New field for the story
-  final DateTime day;
-  final bool hasDonated; // New property to indicate donation status
+  final Project project;
+  final ProjectDayEntity dayEntity; // Replace redundant fields with ProjectDayEntity
+  final int dayIndex; // Add dayIndex field
 
   const ProjectDayCard({
     Key? key,
-    required this.text,
-    required this.prayer,
-    required this.story, // Required parameter for the story
-    required this.day,
-    required this.hasDonated, // Required parameter for donation status
+    required this.project,
+    required this.dayEntity, // Use ProjectDayEntity
+    required this.dayIndex, // Initialize dayIndex
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final DateTime today = DateTime.now();
-    final bool isPast = day.isBefore(today);
-    final bool isFuture = day.isAfter(today);
+    final bool isPast = dayEntity.day.isBefore(today);
+    final bool isFuture = dayEntity.day.isAfter(today);
+    final bool isToday = dayEntity.day.isSameDay(today);
+    final hasDonated = project.hasDonatedFor(dayEntity);
 
     Color cardColor;
     if (hasDonated) {
@@ -46,7 +47,7 @@ class ProjectDayCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  text,
+                  'Day ${dayIndex + 1}: ${dayEntity.title}', // Use dayIndex
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -61,7 +62,7 @@ class ProjectDayCard extends StatelessWidget {
             ),
             const SizedBox(height: 8.0),
             Text(
-              story, // Display the story
+              dayEntity.story, // Use ProjectDayEntity
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             const SizedBox(height: 8.0),
@@ -72,7 +73,7 @@ class ProjectDayCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 16.0),
               child: Text(
-                prayer,
+                dayEntity.prayer, // Use ProjectDayEntity
                 style: Theme.of(context)
                     .textTheme
                     .bodyMedium
@@ -80,10 +81,21 @@ class ProjectDayCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8.0),
-            Text(
-              "Date: ${day.toLocal().toString().split(' ')[0]}",
-              style: Theme.of(context).textTheme.bodySmall,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end, // Align to the right
+              children: [
+                Text(
+                  dayEntity.day.toLocal().toString().split(' ')[0],
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ],
             ),
+            const SizedBox(height: 16.0),
+            if (isToday)
+              DonationButton(
+                project: project, // Pass the project object to the button
+                amount: 50.0, // Example amount
+              ),
           ],
         ),
       ),
