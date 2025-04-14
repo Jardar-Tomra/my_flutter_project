@@ -49,7 +49,7 @@ class ProjectDayCard extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 if (hasDonated)
-                  Icon(
+                  const Icon(
                     Icons.check_circle,
                     color: Colors.green,
                     size: 24.0,

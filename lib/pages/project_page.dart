@@ -157,7 +157,7 @@ class _ProjectPageState extends State<ProjectPage> {
                           if (pointerSignal is PointerScrollEvent) {
                             // Convert vertical mouse scroll into horizontal scroll
                             _pageController.position.moveTo(
-                              _pageController.position.pixels - pointerSignal.scrollDelta.dy,
+                              _pageController.position.pixels + pointerSignal.scrollDelta.dy,
                             );
                           }
                         },
