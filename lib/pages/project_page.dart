@@ -2,9 +2,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_flutter_project/bloc/project.dart';
+import 'package:my_flutter_project/datamodel/project_day_entity.dart';
 import 'package:my_flutter_project/extensions/date_time_formatting.dart';
 import 'package:my_flutter_project/styles/app_text_styles.dart';
-import 'package:my_flutter_project/widgets/custom_dot_effect.dart';
+import 'package:my_flutter_project/widgets/colored_worm_effect.dart';
 import 'package:my_flutter_project/widgets/project_day_card.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'; // Import the package
 import '../../bloc/project_bloc.dart';
@@ -55,6 +56,8 @@ class _ProjectPageState extends State<ProjectPage> {
     return BlocBuilder<ProjectBloc, ProjectState>(      
       builder: (context, state) {
         final currentProject = state is ProjectUpdatedState ? state.project : widget.project;
+        final projectDays = currentProject.getProjectDays();
+        final donationForDays = projectDays.map( (m) => currentProject.hasDonatedFor(m)).toList();
 
         return WillPopScope(
           onWillPop: () => Future(() {
@@ -136,10 +139,10 @@ class _ProjectPageState extends State<ProjectPage> {
                           );
                         },
                         count: currentProject.getProjectDays().length,
-                        effect: CustomDotEffect(
-                          getColor: (index) => _getCardColor(currentProject, index), // Custom color logic
-                          dotHeight: 10.0,
-                          dotWidth: 10.0,
+                        effect: ColoredWormEffect.ColoredWormEffect(
+                          getColor: (index) => _getIndicatorColor(projectDays, donationForDays, index), // Custom color logic
+                          dotHeight: 12.0,
+                          dotWidth: 12.0,
                           spacing: 8.0,
                         ),
                       ),
@@ -162,9 +165,9 @@ class _ProjectPageState extends State<ProjectPage> {
                         child: PageView.builder(
                           controller: _pageController, // Use PageController for synchronization
                           scrollDirection: Axis.horizontal, // Enable horizontal scrolling
-                          itemCount: currentProject.getProjectDays().length,
+                          itemCount: projectDays.length,
                           itemBuilder: (context, index) {
-                            final day = currentProject.getProjectDays()[index];
+                            final day = projectDays[index];
                             return Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 8.0), // Add spacing between cards
                               child: SizedBox(
@@ -190,14 +193,14 @@ class _ProjectPageState extends State<ProjectPage> {
     );
   }
 
-  Color _getCardColor(Project project, int index) {
-    final day = project.getProjectDays()[index];
-    if (project.hasDonatedFor(day)) {
-      return Colors.green.shade100; // Green for donated days
+  Color _getIndicatorColor(List<ProjectDayEntity> days, List<bool> donationsForDays, int index) {
+    final day = days[index];
+    if (donationsForDays[index]) { 
+      return Colors.green.shade300; // Green for donated days
     } else if (day.day.isBefore(DateTime.now())) {
-      return Colors.blue.shade100; // Blue for past days
+      return Colors.blue.shade300; // Blue for past days
     } else {
-      return Colors.grey.shade200; // Grey for future days
+      return Colors.grey.shade500; // Grey for future days
     }
   }
 }

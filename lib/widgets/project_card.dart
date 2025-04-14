@@ -32,11 +32,13 @@ class ProjectCard extends StatelessWidget {
               ? state.project
               : project;
 
+          final isAssigned = project.isAssigned();
+
           return Card(
             margin: const EdgeInsets.all(8.0),
-            color: project.isAssigned() ? Colors.green.shade100 : Colors.blue.shade50, // Green for active projects
+            color: isAssigned ? Colors.green.shade100 : Colors.blue.shade50, // Green for active projects
             child: InkWell(
-              onTap: project.isAssigned()
+              onTap: isAssigned
                   ? onTap // Allow navigation only if the project is assigned
                   : null,
               child: Padding(
@@ -62,7 +64,7 @@ class ProjectCard extends StatelessWidget {
                                 style: AppTextStyles.bodyMedium,
                               ),
                               const SizedBox(height: 16),
-                              if (!project.isAssigned()) // Show "Participate" button for inactive projects
+                              if (!isAssigned) // Show "Participate" button for inactive projects
                                 ElevatedButton(
                                   onPressed: () {
                                     // Logic to start participating in the project
