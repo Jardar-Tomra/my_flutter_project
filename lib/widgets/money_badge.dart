@@ -47,7 +47,7 @@ class MoneyBadge extends StatelessWidget {
               ),
               const SizedBox(width: 2.0),
               Text(
-                amount.toStringAsFixed(2),
+                amount.toStringAsFixed(0),
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       fontWeight: FontWeight.bold,
                       fontSize: 18.0,
