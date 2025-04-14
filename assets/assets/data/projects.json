@@ -1,0 +1,29 @@
+[
+  {
+    "id": "1",
+    "title": "Fasteaksjonen 2025",
+    "description": "Providing clean water to communities in need. Access to clean water improves health, reduces poverty, and supports education. This initiative focuses on building sustainable water systems and educating communities about water safety.",
+    "icon": "Icons.clean_hands",
+    "imageUrl": "assets/images/clean_water.png",
+    "startDate": "2025-04-07T00:00:00",
+    "endDate": "2025-05-01T00:00:00"
+  },
+  {
+    "id": "2",
+    "title": "Education for All",
+    "description": "Ensuring access to education for children in underprivileged areas. Education is the key to breaking the cycle of poverty and unlocking potential. This project builds schools, trains teachers, and provides learning materials to empower future generations.",
+    "icon": "Icons.school",
+    "imageUrl": "assets/images/school.png",
+    "startDate": "2025-04-09T00:00:00",
+    "endDate": "2025-04-30T00:00:00"
+  },
+  {
+    "id": "3",
+    "title": "Healthcare Access",
+    "description": "Providing healthcare services to remote areas. Many communities lack access to basic medical care, leading to preventable illnesses. This project brings mobile clinics, supplies, and trained professionals to improve health outcomes and save lives.",
+    "icon": "Icons.health_and_safety",
+    "imageUrl": "assets/images/healthcare.png",
+    "startDate": "2025-08-01T00:00:00",
+    "endDate": "2025-08-20T00:00:00"
+  }
+]
