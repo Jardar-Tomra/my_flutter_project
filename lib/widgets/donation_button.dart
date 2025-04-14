@@ -30,9 +30,9 @@ class DonationButton extends StatelessWidget {
 
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30.0), // Rounded corners
+          borderRadius: BorderRadius.circular(25.0), // Rounded corners
         ),
         backgroundColor: Colors.blueAccent, // Button background color
         elevation: 5.0, // Shadow effect
@@ -47,9 +47,9 @@ class DonationButton extends StatelessWidget {
         );
       },
       child: Text(
-        'Donate \$${amount.toStringAsFixed(0)} now',
+        'Donate \$${amount.toStringAsFixed(0)}',
         style: const TextStyle(
-          fontSize: 16,
+          fontSize: 14,
           fontWeight: FontWeight.bold,
           color: Colors.white, // Text color
         ),

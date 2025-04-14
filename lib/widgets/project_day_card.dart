@@ -84,20 +84,19 @@ class ProjectDayCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 8.0),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end, // Align to the right
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween, // Align to the right
                   children: [
+                                    if (isToday)
+                  DonationButton(
+                    project: project, // Pass the project object to the button
+                    amount: 50.0, // Example amount
+                  ),
                     Text(
                       dayEntity.day.toLocal().toString().split(' ')[0],
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ],
-                ),
-                const SizedBox(height: 16.0),
-                if (isToday)
-                  DonationButton(
-                    project: project, // Pass the project object to the button
-                    amount: 50.0, // Example amount
-                  ),
+                )
               ],
             ),
           ),
