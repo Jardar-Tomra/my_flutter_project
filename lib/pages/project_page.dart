@@ -3,17 +3,37 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_flutter_project/bloc/project.dart';
 import 'package:my_flutter_project/styles/app_text_styles.dart';
 import 'package:my_flutter_project/widgets/project_day_card.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart'; // Import the package
 import '../../bloc/project_bloc.dart';
 import '../../widgets/donation_button.dart';
 import '../../widgets/date_badge.dart'; // Import the DateBadge widget
 
-class ProjectPage extends StatelessWidget {
+class ProjectPage extends StatefulWidget {
   final Project project;
 
   const ProjectPage({
     super.key,
     required this.project,
   });
+
+  @override
+  _ProjectPageState createState() => _ProjectPageState();
+}
+
+class _ProjectPageState extends State<ProjectPage> {
+  late PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   void _save(BuildContext context, Project updatedProject) {
     final bloc = context.read<ProjectBloc>();
@@ -25,7 +45,7 @@ class ProjectPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ProjectBloc, ProjectState>(      
       builder: (context, state) {
-        final currentProject = state is ProjectUpdatedState ? state.project : project;
+        final currentProject = state is ProjectUpdatedState ? state.project : widget.project;
 
         return WillPopScope(
           onWillPop: () => Future(() {
@@ -73,7 +93,7 @@ class ProjectPage extends StatelessWidget {
                               ),
                               const SizedBox(width: 16),
                                 DonationButton(
-                                project: project,
+                                project: currentProject,
                                 amount: 50.0, // Example amount
                               ),
                               ]),
@@ -102,14 +122,38 @@ class ProjectPage extends StatelessWidget {
                   const SizedBox(height: 8),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ...project.getProjectDays().map((day) {
+                    child: Center(
+                      child: SmoothPageIndicator(
+                        controller: _pageController, // Bind to the PageController
+                        onDotClicked: (d) => 
+                        _pageController.animateToPage(d, 
+                            duration:  Duration(milliseconds: d * 100), 
+                            curve: Curves.bounceInOut),
+                        count: currentProject.getProjectDays().length,
+                        effect: WormEffect(
+                          dotHeight: 10.0,
+                          dotWidth: 10.0,
+                          spacing: 8.0,
+                          activeDotColor: Theme.of(context).primaryColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: SizedBox(
+                      height: 400, // Set a fixed height for horizontal scrolling
+                      child: PageView.builder(
+                        controller: _pageController, // Use PageController for synchronization
+                        scrollDirection: Axis.horizontal, // Enable horizontal scrolling
+                        itemCount: currentProject.getProjectDays().length,
+                        itemBuilder: (context, index) {
+                          final day = currentProject.getProjectDays()[index];
                           return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 4.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0), // Add spacing between cards
                             child: SizedBox(
-                              width: double.infinity,
+                              width: MediaQuery.of(context).size.width * 0.8, // Set width to 80% of screen width
                               child: ProjectDayCard(
                                 text: day.title,
                                 prayer: day.prayer,
@@ -119,8 +163,8 @@ class ProjectPage extends StatelessWidget {
                               ),
                             ),
                           );
-                        }).toList(),
-                      ],
+                        },
+                      ),
                     ),
                   ),
                 ],
