@@ -148,6 +148,31 @@ class Repository {
     return projects.where((project) => !assignedProjectIds.contains(project.id)).toList();
   }
 
+  void activateProjectForUser(String userId, String projectId) {
+    _logger.i('Activating project $projectId for user $userId');
+    final existingAssignment = userProjectAssignments.firstOrNullWhere(
+      (assignment) => assignment.userId == userId && assignment.projectId == projectId
+    );
+
+    if (existingAssignment != null) {
+      throw ArgumentError('Project is already active for the user');
+    }
+
+    userProjectAssignments.add(
+      user_project_assignment_entity.UserProjectAssignmentEntity(
+        userId: userId,
+        projectId: projectId,
+      ),
+    );
+  }
+
+  void deactivateProjectForUser(String userId, String projectId) {
+    _logger.i('Deactivating project $projectId for user $userId');
+    userProjectAssignments.removeWhere(
+      (assignment) => assignment.userId == userId && assignment.projectId == projectId,
+    );
+  }
+
   Future<void> loadData() async {
     _logger.i('Loading data from assets');
     final projectJson = await rootBundle.loadString('assets/data/projects.json');

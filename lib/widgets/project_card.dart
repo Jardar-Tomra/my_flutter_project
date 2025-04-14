@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:my_flutter_project/bloc/project.dart';
+import 'package:my_flutter_project/bloc/user_bloc.dart';
 import 'package:my_flutter_project/widgets/date_badge.dart';
-import 'package:my_flutter_project/widgets/project_donation_tracker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_flutter_project/bloc/project_bloc.dart';
-import 'package:my_flutter_project/extensions/date_time_formatting.dart';
 import 'package:my_flutter_project/styles/app_text_styles.dart';
 
 class ProjectCard extends StatelessWidget {
@@ -34,6 +33,7 @@ class ProjectCard extends StatelessWidget {
 
           return Card(
             margin: const EdgeInsets.all(8.0),
+            color: project.isAssigned() ? Colors.green.shade100 : Colors.white, // Green for active projects
             child: InkWell(
               onTap: onTap,
               child: Padding(
@@ -59,21 +59,14 @@ class ProjectCard extends StatelessWidget {
                                 style: AppTextStyles.bodyMedium,
                               ),
                               const SizedBox(height: 16),
-                              Row(
-                                children: [
-                                  Text(
-                                    'Total: \$${updatedProject.totalDonations.toStringAsFixed(2)}',
-                                    style: AppTextStyles.bodyLarge,
-                                  ),
-                                  const SizedBox(width: 16),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      project.donate(50.0); // Example donation amount
-                                    },
-                                    child: const Text('Donate \$50'),
-                                  ),
-                                ],
-                              ),
+                              if (!project.isAssigned()) // Show "Participate" button for inactive projects
+                                ElevatedButton(
+                                  onPressed: () {
+                                    // Logic to start participating in the project
+                                    context.activate(updatedProject.id);
+                                  },
+                                  child: const Text('Participate'),
+                                ),
                             ],
                           ),
                         ),
@@ -88,13 +81,12 @@ class ProjectCard extends StatelessWidget {
                                 endDate: updatedProject.endDate,
                                 size: BadgeSize.small,
                               ),
+                              const SizedBox(height: 8),
+                              Text(
+                                'Total: \$${updatedProject.totalDonations.toStringAsFixed(2)}',
+                                style: AppTextStyles.bodyLarge,
+                              ),
                               const SizedBox(height: 16),
-                              if (project.isAssigned())
-                                const Icon(
-                                  Icons.check_circle,
-                                  color: Colors.green,
-                                  size: 24.0,
-                                ),
                             ],
                           ),
                         ),

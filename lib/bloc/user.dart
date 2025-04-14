@@ -53,3 +53,4 @@ class User {
     return getAssignedProjects().any((project) => project.id == projectId);
   }
 }
+
