@@ -65,7 +65,24 @@ class ProjectCard extends StatelessWidget {
                                     // Logic to start participating in the project
                                     context.activate(updatedProject.id);
                                   },
-                                  child: const Text('Participate'),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.blueAccent, // Match Donate button color
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 10.0,
+                                      horizontal: 20.0,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                  ),
+                                  child: const Text(
+                                    'Participate',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white, // Text color
+                                    ),
+                                  ),
                                 ),
                             ],
                           ),
