@@ -78,5 +78,45 @@
     "projectId": "1",
     "day": "2025-04-15T00:00:00",
     "story": "After years of effort, a community celebrated the completion of a clean water project. Families gathered to share stories of how their lives had improved, from better health to new opportunities. The celebration marked a new chapter of hope and resilience."
+  },
+  {
+    "id": "pd11",
+    "text": "Day 9: Innovating water purification methods",
+    "prayer": "May innovation lead the way. Technology and creativity can solve the toughest challenges. Let us embrace new ideas for a better future.",
+    "projectId": "1",
+    "day": "2025-04-16T00:00:00",
+    "story": "A team of young engineers developed a low-cost water purification system. Their invention was implemented in rural areas, providing clean water to thousands and inspiring others to innovate for social good."
+  },
+  {
+    "id": "pd12",
+    "text": "Day 10: Empowering women through water projects",
+    "prayer": "May this bring equality. Access to water empowers women and girls, giving them time and opportunities to thrive. Let us support their journey.",
+    "projectId": "1",
+    "day": "2025-04-17T00:00:00",
+    "story": "In a village, women formed a cooperative to manage a new water system. With more time available, they started small businesses and sent their daughters to school, transforming their community."
+  },
+  {
+    "id": "pd13",
+    "text": "Day 11: Advocating for water rights",
+    "prayer": "May justice prevail. Water is a human right. Let us stand together to ensure everyone has access to this vital resource.",
+    "projectId": "1",
+    "day": "2025-04-18T00:00:00",
+    "story": "Activists organized a campaign to raise awareness about water rights. Their efforts led to policy changes that prioritized clean water access for underserved communities."
+  },
+  {
+    "id": "pd14",
+    "text": "Day 12: Celebrating community efforts",
+    "prayer": "May unity bring strength. Together, we can achieve great things. Let us celebrate the power of community.",
+    "projectId": "1",
+    "day": "2025-04-19T00:00:00",
+    "story": "A community came together to build a rainwater harvesting system. Their collaboration not only solved their water issues but also strengthened their bonds and inspired neighboring villages."
+  },
+  {
+    "id": "pd15",
+    "text": "Day 13: Planning for a sustainable future",
+    "prayer": "May our actions today secure tomorrow. Sustainability is the key to lasting change. Let us plan wisely for future generations.",
+    "projectId": "1",
+    "day": "2025-04-20T00:00:00",
+    "story": "A group of students created a long-term plan for water conservation in their town. Their vision included tree planting, water recycling, and education programs, ensuring a sustainable future for all."
   }
 ]

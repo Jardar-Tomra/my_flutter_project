@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_flutter_project/bloc/project.dart';
+import 'package:my_flutter_project/extensions/date_time_formatting.dart';
 import 'package:my_flutter_project/styles/app_text_styles.dart';
 import 'package:my_flutter_project/widgets/custom_dot_effect.dart';
 import 'package:my_flutter_project/widgets/project_day_card.dart';
@@ -28,7 +29,13 @@ class _ProjectPageState extends State<ProjectPage> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController();
+    final todayIndex = widget.project.getProjectDays().indexWhere(
+      (day) {
+        var nowDay = DateTime.now().dateOnly();
+        return day.day.isSameDay(nowDay) || day.day.isAfter(nowDay);
+      }
+    );
+    _pageController = PageController(initialPage: todayIndex >= 0 ? todayIndex : 0);
   }
 
   @override
