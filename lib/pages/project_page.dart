@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_flutter_project/bloc/project.dart';
 import 'package:my_flutter_project/styles/app_text_styles.dart';
+import 'package:my_flutter_project/widgets/custom_dot_effect.dart';
 import 'package:my_flutter_project/widgets/project_day_card.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'; // Import the package
 import '../../bloc/project_bloc.dart';
@@ -127,6 +128,7 @@ class _ProjectPageState extends State<ProjectPage> {
                       child: SmoothPageIndicator(
                         controller: _pageController, // Bind to the PageController
                         onDotClicked: (d) {
+                          debugPrint('Dot clicked: $d');
                           var page = _pageController.page;
                           double durationMs = ((page ?? 0) - d.toDouble()).abs() * 100 + 30;
                           _pageController.animateToPage(
@@ -136,11 +138,11 @@ class _ProjectPageState extends State<ProjectPage> {
                           );
                         },
                         count: currentProject.getProjectDays().length,
-                        effect: WormEffect(
-                          dotHeight: 14.0,
-                          dotWidth: 14.0,
+                        effect: CustomDotEffect(
+                          getColor: (index) => _getCardColor(currentProject, index), // Custom color logic
+                          dotHeight: 10.0,
+                          dotWidth: 10.0,
                           spacing: 8.0,
-                          activeDotColor: Theme.of(context).primaryColor,
                         ),
                       ),
                     ),
@@ -190,5 +192,16 @@ class _ProjectPageState extends State<ProjectPage> {
         );
       },
     );
+  }
+
+  Color _getCardColor(Project project, int index) {
+    final day = project.getProjectDays()[index];
+    if (project.hasDonatedFor(day)) {
+      return Colors.green.shade100; // Green for donated days
+    } else if (day.day.isBefore(DateTime.now())) {
+      return Colors.blue.shade100; // Blue for past days
+    } else {
+      return Colors.grey.shade200; // Grey for future days
+    }
   }
 }

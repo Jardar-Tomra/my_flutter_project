@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_flutter_project/bloc/project.dart';
+import 'package:my_flutter_project/widgets/date_badge.dart';
 import 'package:my_flutter_project/widgets/project_donation_tracker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_flutter_project/bloc/project_bloc.dart';
@@ -41,52 +42,64 @@ class ProjectCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(
-                          project.icon,
-                          size: 40,
-                          color: project.isAssigned() ? Colors.green : Colors.grey,
+                        Expanded(
+                          flex: 3,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                updatedProject.title,
+                                style: AppTextStyles.titleMedium,
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                updatedProject.description,
+                                style: AppTextStyles.bodyMedium,
+                              ),
+                              const SizedBox(height: 16),
+                              Row(
+                                children: [
+                                  Text(
+                                    'Total: \$${updatedProject.totalDonations.toStringAsFixed(2)}',
+                                    style: AppTextStyles.bodyLarge,
+                                  ),
+                                  const SizedBox(width: 16),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      project.donate(50.0); // Example donation amount
+                                    },
+                                    child: const Text('Donate \$50'),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                         const SizedBox(width: 16),
                         Expanded(
-                          child: Text(
-                            updatedProject.title,
-                            style: AppTextStyles.titleMedium,
+                          flex: 1,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              DateBadge(
+                                startDate: updatedProject.startDate,
+                                endDate: updatedProject.endDate,
+                                size: BadgeSize.small,
+                              ),
+                              const SizedBox(height: 16),
+                              if (project.isAssigned())
+                                const Icon(
+                                  Icons.check_circle,
+                                  color: Colors.green,
+                                  size: 24.0,
+                                ),
+                            ],
                           ),
                         ),
-                        if (project.isAssigned())
-                          const Icon(
-                            Icons.check_circle,
-                            color: Colors.green,
-                          ),
                       ],
                     ),
-                    const SizedBox(height: 16),
-                    Text(
-                      'Total Donations: \$${project.totalDonations.toStringAsFixed(2)}',
-                      style: AppTextStyles.bodyLarge,
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Duration: ${updatedProject.startDate.toLocal().toShortDateString()} - ${updatedProject.endDate.toLocal().toShortDateString()}',
-                      style: AppTextStyles.bodySmall,
-                    ),
-                    const SizedBox(height: 16),
-                    ElevatedButton(
-                      onPressed: () {
-                        project.donate(50.0); // Example donation amount
-                      },
-                      child: const Text('Donate \$50'),
-                    ),
-                    if (project.isAssigned()) ...[
-                      const SizedBox(height: 16),
-                      const Text(
-                        'Donation Tracker:',
-                        style: AppTextStyles.sectionHeader,
-                      ),
-                      const SizedBox(height: 8),
-                      ProjectDonationTracker.fromProject(updatedProject),
-                    ],
                   ],
                 ),
               ),
