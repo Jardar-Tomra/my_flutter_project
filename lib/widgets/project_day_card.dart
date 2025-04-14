@@ -30,7 +30,7 @@ class ProjectDayCard extends StatelessWidget {
     } else if (isPast) {
       cardColor = Colors.blue.shade100; // Blue-ish for past days
     } else if (isFuture) {
-      cardColor = Colors.grey.shade200; // Grey-ish for future days
+      cardColor = Colors.grey.shade300; // Grey-ish for future days
     } else {
       cardColor = Colors.white; // Default color
     }
@@ -38,66 +38,82 @@ class ProjectDayCard extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.all(8.0),
       color: cardColor, // Set the card's background color
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Day ${dayIndex + 1}: ${dayEntity.title}', // Use dayIndex
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    if (hasDonated)
+                      const Icon(
+                        Icons.check_circle,
+                        color: Colors.green,
+                        size: 24.0,
+                      ),
+                  ],
+                ),
+                const SizedBox(height: 8.0),
                 Text(
-                  'Day ${dayIndex + 1}: ${dayEntity.title}', // Use dayIndex
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
+                  dayEntity.story, // Use ProjectDayEntity
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 8.0),
+                Text(
+                  'Prayer:',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0),
+                  child: Text(
+                    dayEntity.prayer, // Use ProjectDayEntity
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(fontStyle: FontStyle.italic),
                   ),
                 ),
-                if (hasDonated)
-                  const Icon(
-                    Icons.check_circle,
-                    color: Colors.green,
-                    size: 24.0,
+                const SizedBox(height: 8.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end, // Align to the right
+                  children: [
+                    Text(
+                      dayEntity.day.toLocal().toString().split(' ')[0],
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16.0),
+                if (isToday)
+                  DonationButton(
+                    project: project, // Pass the project object to the button
+                    amount: 50.0, // Example amount
                   ),
               ],
             ),
-            const SizedBox(height: 8.0),
-            Text(
-              dayEntity.story, // Use ProjectDayEntity
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            const SizedBox(height: 8.0),
-            Text(
-              'Prayer:',
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 16.0),
-              child: Text(
-                dayEntity.prayer, // Use ProjectDayEntity
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(fontStyle: FontStyle.italic),
+          ),
+          Positioned(
+            bottom: 16.0,
+            right: 16.0,
+            child: Text(
+              'Day ${dayIndex + 1}', // Display dayIndex
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                fontSize: 40.0,
+                color: Colors.white.withOpacity(0.9), // Lightened color
+                fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 8.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end, // Align to the right
-              children: [
-                Text(
-                  dayEntity.day.toLocal().toString().split(' ')[0],
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-              ],
-            ),
-            const SizedBox(height: 16.0),
-            if (isToday)
-              DonationButton(
-                project: project, // Pass the project object to the button
-                amount: 50.0, // Example amount
-              ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

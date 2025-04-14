@@ -9,7 +9,7 @@ class DonationButton extends StatelessWidget {
   const DonationButton({
     super.key,
     required this.project,
-    this.amount = 10.0,
+    required this.amount,
   });
 
 

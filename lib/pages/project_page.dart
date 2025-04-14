@@ -171,7 +171,8 @@ class _ProjectPageState extends State<ProjectPage> {
                                 width: MediaQuery.of(context).size.width * 0.8, // Set width to 80% of screen width
                                 child: ProjectDayCard(
                                   project: currentProject,
-                                  dayEntity: day, // Pass the ProjectDayEntity
+                                  dayEntity: day, // Pass
+                                  dayIndex: index,
                                 ),
                               ),
                             );

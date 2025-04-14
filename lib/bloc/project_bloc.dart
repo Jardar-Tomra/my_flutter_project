@@ -87,7 +87,7 @@ extension ProjectBlocExtension on BuildContext {
   void donate(String projectId, double amount) {
     read<ProjectBloc>().add(AddDonationEvent(
       projectId: projectId,
-      amount: 10.0,
+      amount: amount,
     ));
   }
 }

@@ -34,9 +34,11 @@ class ProjectCard extends StatelessWidget {
 
           return Card(
             margin: const EdgeInsets.all(8.0),
-            color: project.isAssigned() ? Colors.green.shade100 : Colors.white, // Green for active projects
+            color: project.isAssigned() ? Colors.green.shade100 : Colors.blue.shade50, // Green for active projects
             child: InkWell(
-              onTap: onTap,
+              onTap: project.isAssigned()
+                  ? onTap // Allow navigation only if the project is assigned
+                  : null,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
