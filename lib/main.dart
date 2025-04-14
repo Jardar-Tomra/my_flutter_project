@@ -48,11 +48,11 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => GetIt.instance<BlocFactory>().createUserBloc()..add(LoadUsers())),
       ],
       child: MaterialApp(
-        title: 'Charity Donation App',
+        title: 'Caritas Donation',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const HomePage(title: 'Home'),
+        home: const HomePage(title: 'Caritas Projects'),
       ),
     );
   }
