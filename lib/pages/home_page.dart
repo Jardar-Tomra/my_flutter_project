@@ -32,8 +32,8 @@ class HomePage extends StatelessWidget {
                 right: 8.0,
                 child: Image.asset(
                   'assets/images/logo.png',
-                  width: 80.0,
-                  height: 80.0,
+                  width: 70.0,
+                  height: 70.0,
                 ),
               ),
             ],
@@ -56,11 +56,11 @@ class HomePage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.all(16.0),
+                              padding: const EdgeInsets.all(8.0),
                               child: Text(
                                 'Welcome, ${activeUser.name}!',
                                 style: const TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),

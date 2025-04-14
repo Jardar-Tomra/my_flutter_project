@@ -5,6 +5,7 @@ import 'package:my_flutter_project/widgets/date_badge.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_flutter_project/bloc/project_bloc.dart';
 import 'package:my_flutter_project/styles/app_text_styles.dart';
+import 'package:my_flutter_project/widgets/money_badge.dart'; // Import MoneyBadge
 
 class ProjectCard extends StatelessWidget {
   final Project project;
@@ -98,12 +99,10 @@ class ProjectCard extends StatelessWidget {
                                 endDate: updatedProject.endDate,
                                 size: BadgeSize.small,
                               ),
-                              const SizedBox(height: 8),
-                              Text(
-                                'Total: \$${updatedProject.totalDonations.toStringAsFixed(2)}',
-                                style: AppTextStyles.bodyLarge,
-                              ),
                               const SizedBox(height: 16),
+                              MoneyBadge(
+                                amount: updatedProject.totalDonations,
+                              ),
                             ],
                           ),
                         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'money_badge.dart'; // Import MoneyBadge
 
 class ProjectDayCard extends StatelessWidget {
   final String text;

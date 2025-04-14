@@ -10,6 +10,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart'; // Import the
 import '../../bloc/project_bloc.dart';
 import '../../widgets/donation_button.dart';
 import '../../widgets/date_badge.dart'; // Import the DateBadge widget
+import '../../widgets/money_badge.dart'; // Import MoneyBadge
 
 class ProjectPage extends StatefulWidget {
   final Project project;
@@ -94,18 +95,10 @@ class _ProjectPageState extends State<ProjectPage> {
                                 style: AppTextStyles.bodyMedium,
                               ),
                               const SizedBox(height: 16),
-                              Row(
-                                children: [
-                                  Text(
-                                'Total: \$${currentProject.totalDonations.toStringAsFixed(2)}',
-                                style: AppTextStyles.bodyLarge,
-                              ),
-                              const SizedBox(width: 16),
-                                DonationButton(
+                              DonationButton(
                                 project: currentProject,
                                 amount: 50.0, // Example amount
                               ),
-                              ]),
                             ],
                           ),
                         ),
@@ -121,7 +114,10 @@ class _ProjectPageState extends State<ProjectPage> {
                                 size: BadgeSize.small,
                               ),
                               const SizedBox(height: 16),
-
+                              MoneyBadge(
+                                amount: currentProject.totalDonations,
+                              ),
+                              const SizedBox(height: 16),
                             ],
                           ),
                         ),
