@@ -49,7 +49,7 @@ class ProjectDayCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Day ${dayIndex + 1}: ${dayEntity.title}', // Use dayIndex
+                      '${dayEntity.title}', // Use dayIndex
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
