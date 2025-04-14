@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_flutter_project/bloc/project.dart';
@@ -125,10 +126,15 @@ class _ProjectPageState extends State<ProjectPage> {
                     child: Center(
                       child: SmoothPageIndicator(
                         controller: _pageController, // Bind to the PageController
-                        onDotClicked: (d) => 
-                        _pageController.animateToPage(d, 
-                            duration:  Duration(milliseconds: d * 100), 
-                            curve: Curves.bounceInOut),
+                        onDotClicked: (d) {
+                          var page = _pageController.page;
+                          double durationMs = ((page ?? 0) - d.toDouble()).abs() * 100 + 30;
+                          _pageController.animateToPage(
+                          d,
+                          duration: Duration(milliseconds: durationMs.toInt()),
+                          curve: Curves.bounceInOut,
+                          );
+                        },
                         count: currentProject.getProjectDays().length,
                         effect: WormEffect(
                           dotHeight: 10.0,
@@ -144,26 +150,36 @@ class _ProjectPageState extends State<ProjectPage> {
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: SizedBox(
                       height: 400, // Set a fixed height for horizontal scrolling
-                      child: PageView.builder(
-                        controller: _pageController, // Use PageController for synchronization
-                        scrollDirection: Axis.horizontal, // Enable horizontal scrolling
-                        itemCount: currentProject.getProjectDays().length,
-                        itemBuilder: (context, index) {
-                          final day = currentProject.getProjectDays()[index];
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0), // Add spacing between cards
-                            child: SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.8, // Set width to 80% of screen width
-                              child: ProjectDayCard(
-                                text: day.title,
-                                prayer: day.prayer,
-                                story: day.story,
-                                day: day.day,
-                                hasDonated: currentProject.hasDonatedFor(day), // Provide the required parameter
-                              ),
-                            ),
-                          );
+                      child: Listener(
+                        onPointerSignal: (pointerSignal) {
+                          if (pointerSignal is PointerScrollEvent) {
+                            // Convert vertical mouse scroll into horizontal scroll
+                            _pageController.position.moveTo(
+                              _pageController.position.pixels - pointerSignal.scrollDelta.dy,
+                            );
+                          }
                         },
+                        child: PageView.builder(
+                          controller: _pageController, // Use PageController for synchronization
+                          scrollDirection: Axis.horizontal, // Enable horizontal scrolling
+                          itemCount: currentProject.getProjectDays().length,
+                          itemBuilder: (context, index) {
+                            final day = currentProject.getProjectDays()[index];
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8.0), // Add spacing between cards
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.8, // Set width to 80% of screen width
+                                child: ProjectDayCard(
+                                  text: day.title,
+                                  prayer: day.prayer,
+                                  story: day.story,
+                                  day: day.day,
+                                  hasDonated: currentProject.hasDonatedFor(day), // Provide the required parameter
+                                ),
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ),
