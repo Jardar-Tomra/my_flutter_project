@@ -137,8 +137,8 @@ class _ProjectPageState extends State<ProjectPage> {
                         },
                         count: currentProject.getProjectDays().length,
                         effect: WormEffect(
-                          dotHeight: 10.0,
-                          dotWidth: 10.0,
+                          dotHeight: 14.0,
+                          dotWidth: 14.0,
                           spacing: 8.0,
                           activeDotColor: Theme.of(context).primaryColor,
                         ),
