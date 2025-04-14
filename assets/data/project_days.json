@@ -1,7 +1,7 @@
 [
   {
     "id": "pd1",
-    "text": "Day 1: Clean Water Awareness",
+    "text": "Clean Water Awareness",
     "prayer": "May this help those in need. Let us come together to bring clean water to every corner of the world. Together, we can make a lasting impact.",
     "projectId": "1",
     "day": "2025-04-08T00:00:00",
@@ -9,7 +9,7 @@
   },
   {
     "id": "pd2",
-    "text": "Day 1: Education for All",
+    "text": "Education for All",
     "prayer": "May this bring knowledge to many. Education is the key to unlocking potential and creating opportunities. Let us strive to make it accessible to everyone.",
     "projectId": "2",
     "day": "2025-02-20T00:00:00",
@@ -17,7 +17,7 @@
   },
   {
     "id": "pd3",
-    "text": "Day 1: Healthcare Access",
+    "text": "Healthcare Access",
     "prayer": "May this heal the sick. Good health is a foundation for a better life. Let us work to ensure healthcare is available to all.",
     "projectId": "3",
     "day": "2025-03-10T00:00:00",
@@ -25,7 +25,7 @@
   },
   {
     "id": "pd4",
-    "text": "Day 2: Understanding water scarcity",
+    "text": "Understanding Water Scarcity",
     "prayer": "May we find solutions together. Water is a precious resource that sustains life. Let us act responsibly to preserve it for future generations.",
     "projectId": "1",
     "day": "2025-04-09T00:00:00",
@@ -33,7 +33,7 @@
   },
   {
     "id": "pd5",
-    "text": "Day 3: Promoting clean water initiatives",
+    "text": "Promoting Clean Water",
     "prayer": "May this effort bring hope. Clean water is essential for health and dignity. Together, we can create a world where everyone has access to it.",
     "projectId": "1",
     "day": "2025-04-10T00:00:00",
@@ -41,7 +41,7 @@
   },
   {
     "id": "pd6",
-    "text": "Day 4: Educating communities on water safety",
+    "text": "Educating on Water Safety",
     "prayer": "May knowledge empower change. Education can transform lives and communities. Let us share what we know to make a difference.",
     "projectId": "1",
     "day": "2025-04-11T00:00:00",
@@ -49,7 +49,7 @@
   },
   {
     "id": "pd7",
-    "text": "Day 5: Building sustainable water systems",
+    "text": "Building Sustainable Systems",
     "prayer": "May this work last for generations. Sustainability ensures that our efforts endure. Let us build systems that stand the test of time.",
     "projectId": "1",
     "day": "2025-04-12T00:00:00",
@@ -57,7 +57,7 @@
   },
   {
     "id": "pd8",
-    "text": "Day 6: Raising awareness about water pollution",
+    "text": "Raising Pollution Awareness",
     "prayer": "May we protect our resources. Pollution threatens the health of our planet and its people. Let us take action to safeguard our water sources.",
     "projectId": "1",
     "day": "2025-04-13T00:00:00",
@@ -65,7 +65,7 @@
   },
   {
     "id": "pd9",
-    "text": "Day 7: Supporting clean water access for all",
+    "text": "Supporting Clean Water Access",
     "prayer": "May everyone have what they need. Access to clean water is a basic human right. Let us work tirelessly to make it a reality for all.",
     "projectId": "1",
     "day": "2025-04-14T00:00:00",
@@ -73,7 +73,7 @@
   },
   {
     "id": "pd10",
-    "text": "Day 8: Reflecting on the impact of clean water",
+    "text": "Reflecting on Clean Water Impact",
     "prayer": "May we continue to make a difference. Every drop of clean water changes lives. Let us reflect on our progress and renew our commitment.",
     "projectId": "1",
     "day": "2025-04-15T00:00:00",
@@ -81,7 +81,7 @@
   },
   {
     "id": "pd11",
-    "text": "Day 9: Innovating water purification methods",
+    "text": "Innovating Purification Methods",
     "prayer": "May innovation lead the way. Technology and creativity can solve the toughest challenges. Let us embrace new ideas for a better future.",
     "projectId": "1",
     "day": "2025-04-16T00:00:00",
@@ -89,7 +89,7 @@
   },
   {
     "id": "pd12",
-    "text": "Day 10: Empowering women through water projects",
+    "text": "Empowering Women Through Water",
     "prayer": "May this bring equality. Access to water empowers women and girls, giving them time and opportunities to thrive. Let us support their journey.",
     "projectId": "1",
     "day": "2025-04-17T00:00:00",
@@ -97,7 +97,7 @@
   },
   {
     "id": "pd13",
-    "text": "Day 11: Advocating for water rights",
+    "text": "Advocating for Water Rights",
     "prayer": "May justice prevail. Water is a human right. Let us stand together to ensure everyone has access to this vital resource.",
     "projectId": "1",
     "day": "2025-04-18T00:00:00",
@@ -105,7 +105,7 @@
   },
   {
     "id": "pd14",
-    "text": "Day 12: Celebrating community efforts",
+    "text": "Celebrating Community Efforts",
     "prayer": "May unity bring strength. Together, we can achieve great things. Let us celebrate the power of community.",
     "projectId": "1",
     "day": "2025-04-19T00:00:00",
@@ -113,10 +113,18 @@
   },
   {
     "id": "pd15",
-    "text": "Day 13: Planning for a sustainable future",
+    "text": "Planning for Sustainability",
     "prayer": "May our actions today secure tomorrow. Sustainability is the key to lasting change. Let us plan wisely for future generations.",
     "projectId": "1",
     "day": "2025-04-20T00:00:00",
     "story": "A group of students created a long-term plan for water conservation in their town. Their vision included tree planting, water recycling, and education programs, ensuring a sustainable future for all."
+  },
+  {
+    "id": "pd16",
+    "text": "Expanding Clean Water Access",
+    "prayer": "May our efforts reach even more people. Clean water is a gift that transforms lives. Let us continue to expand our reach and make a difference.",
+    "projectId": "1",
+    "day": "2025-04-21T00:00:00",
+    "story": "A new partnership with local organizations enabled the construction of additional wells in remote areas. Families who once struggled to find clean water now have access to safe drinking water, improving their quality of life and health."
   }
 ]
