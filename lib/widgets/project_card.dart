@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_flutter_project/bloc/project_bloc.dart';
 import 'package:my_flutter_project/styles/app_text_styles.dart';
 import 'package:my_flutter_project/widgets/money_badge.dart'; // Import MoneyBadge
+import 'package:my_flutter_project/pages/setup_participation_page.dart';
 
 class ProjectCard extends StatelessWidget {
   final Project project;
@@ -76,8 +77,12 @@ class ProjectCard extends StatelessWidget {
                                 if (!isAssigned) // Show "Participate" button for inactive projects
                                   ElevatedButton(
                                     onPressed: () {
-                                      // Logic to start participating in the project
-                                      context.activate(updatedProject.id);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => SetupParticipationPage(project: updatedProject,),
+                                        ),
+                                      );
                                     },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.blueAccent, // Match Donate button color
