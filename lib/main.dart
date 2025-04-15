@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:my_flutter_project/bloc/bloc_factory.dart';
 import 'package:my_flutter_project/datamodel/user_entity.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'bloc/project_bloc.dart';
 import 'bloc/user_bloc.dart';
 import 'pages/home_page.dart';
@@ -25,6 +26,11 @@ Future<void> setupDependencies() async {
   getIt.registerSingleton<UserEntity>(currentUser);
 }
 
+Future<String> getAppVersion() async {
+  final packageInfo = await PackageInfo.fromPlatform();
+  return packageInfo.version;
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Ensure Flutter bindings are initialized
   await setupDependencies(); // Wait for dependencies to be set up
@@ -36,24 +42,30 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (_) {
-            final projectBloc = GetIt.instance<BlocFactory>().createProjectBloc();
-            projectBloc.add(LoadProjects());
-            return projectBloc;
-          },
-        ),
-        BlocProvider(create: (_) => GetIt.instance<BlocFactory>().createUserBloc()..add(LoadUsers())),
-      ],
-      child: MaterialApp(
-        title: 'Caritas Donation',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: const HomePage(title: 'Caritas Projects'),
-      ),
+    return FutureBuilder<String>(
+      future: getAppVersion(),
+      builder: (context, snapshot) {
+        final version = snapshot.data ?? 'Loading...';
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (_) {
+                final projectBloc = GetIt.instance<BlocFactory>().createProjectBloc();
+                projectBloc.add(LoadProjects());
+                return projectBloc;
+              },
+            ),
+            BlocProvider(create: (_) => GetIt.instance<BlocFactory>().createUserBloc()..add(LoadUsers())),
+          ],
+          child: MaterialApp(
+            title: 'Caritas Donation',
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+            ),
+            home: HomePage(title: 'Caritas Projects (v$version)'),
+          ),
+        );
+      },
     );
   }
 }

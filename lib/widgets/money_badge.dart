@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 class MoneyBadge extends StatelessWidget {
   final double amount;
+  final dynamic amountForAll;
 
   const MoneyBadge({
     Key? key,
     required this.amount,
+    required this.amountForAll,
   }) : super(key: key);
 
   @override
@@ -27,7 +29,7 @@ class MoneyBadge extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            'Total',
+            'Your Total',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: Colors.blue.shade800,
@@ -49,6 +51,38 @@ class MoneyBadge extends StatelessWidget {
               const SizedBox(width: 2.0),
               Text(
                 amount.toStringAsFixed(0),
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.0,
+                      color: Colors.blue.shade900,
+                    ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8.0),
+          Text(
+            'All Projects',
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue.shade800,
+                ),
+          ),
+          const SizedBox(height: 4.0),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '\$',
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12.0,
+                      color: Colors.blue.shade800,
+                    ),
+              ),
+              const SizedBox(width: 2.0),
+              Text(
+                amountForAll.toStringAsFixed(0),
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       fontWeight: FontWeight.bold,
                       fontSize: 18.0,

@@ -1,8 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:my_flutter_project/bloc/aggregated_project_bloc.dart';
+import 'package:my_flutter_project/bloc/bloc_factory.dart';
 import 'package:my_flutter_project/bloc/project.dart';
 import 'package:my_flutter_project/datamodel/project_day_entity.dart';
+import 'package:my_flutter_project/datamodel/repository.dart';
 import 'package:my_flutter_project/extensions/date_time_formatting.dart';
 import 'package:my_flutter_project/styles/app_text_styles.dart';
 import 'package:my_flutter_project/widgets/colored_worm_effect.dart';
@@ -53,144 +57,153 @@ class _ProjectPageState extends State<ProjectPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProjectBloc, ProjectState>(      
-      builder: (context, state) {
-        final currentProject = state is ProjectUpdatedState ? state.project : widget.project;
-        final projectDays = currentProject.getProjectDays();
-        final donationForDays = projectDays.map( (m) => currentProject.hasDonatedFor(m)).toList();
+    return BlocBuilder<ProjectBloc, ProjectState>(
+        builder: (context, state) {
+          final currentProject = state is ProjectUpdatedState ? state.project : widget.project;
+          final projectDays = currentProject.getProjectDays();
+          final donationForDays = projectDays.map((m) => currentProject.hasDonatedFor(m)).toList();
 
-        return WillPopScope(
-          onWillPop: () => Future(() {
-            _save(context, currentProject);
-            return true;
-          }),
-          child: Scaffold(
-            appBar: AppBar(
-              title: Text(currentProject.title),
-            ),
-            body: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Display the image at the top
-                  Image.asset(
-                    currentProject.imageUrl,
-                    width: double.infinity,
-                    height: 300,
-                    fit: BoxFit.cover,
-                    alignment: Alignment.topCenter,
-                  ),
-                  const SizedBox(height: 16),
+          return WillPopScope(
+            onWillPop: () => Future(() {
+              _save(context, currentProject);
+              return true;
+            }),
+            child: BlocProvider(
+              create: (context) => GetIt.instance<BlocFactory>().createAggregatedProjectBloc(currentProject.id),
+              child: Scaffold(
+                appBar: AppBar(
+                  title: Text(currentProject.title),
+                ),
+                body: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Display the image at the top
+                      Image.asset(
+                        currentProject.imageUrl,
+                        width: double.infinity,
+                        height: 300,
+                        fit: BoxFit.cover,
+                        alignment: Alignment.topCenter,
+                      ),
+                      const SizedBox(height: 16),
 
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          flex: 3,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                currentProject.description,
-                                style: AppTextStyles.bodyMedium,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              flex: 3,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    currentProject.description,
+                                    style: AppTextStyles.bodyMedium,
+                                  ),
+                                  const SizedBox(height: 16)
+                                ],
                               ),
-                              const SizedBox(height: 16)
-                            ],
-                          ),
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              DateBadge(
-                                startDate: currentProject.startDate,
-                                endDate: currentProject.endDate,
-                                size: BadgeSize.small,
+                            ),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              flex: 1,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  DateBadge(
+                                    startDate: currentProject.startDate,
+                                    endDate: currentProject.endDate,
+                                    size: BadgeSize.small,
+                                  ),
+                                  const SizedBox(height: 16),
+                                  BlocBuilder<AggregatedProjectBloc, AggregatedProjectState>(
+                                    builder: (context, state) {
+                                      return MoneyBadge(
+                                        amountForAll: state.totalDonations,
+                                        amount: currentProject.totalDonations(),
+                                      );
+                                    },
+                                  ),
+                                  const SizedBox(height: 16),
+                                ],
                               ),
-                              const SizedBox(height: 16),
-                              MoneyBadge(
-                                amount: currentProject.totalDonations(),
-                              ),
-                              const SizedBox(height: 16),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Center(
-                      child: SmoothPageIndicator(
-                        controller: _pageController, // Bind to the PageController
-                        onDotClicked: (d) {
-                          debugPrint('Dot clicked: $d');
-                          var page = _pageController.page;
-                          double durationMs = ((page ?? 0) - d.toDouble()).abs() * 100 + 30;
-                          _pageController.animateToPage(
-                          d,
-                          duration: Duration(milliseconds: durationMs.toInt()),
-                          curve: Curves.bounceInOut,
-                          );
-                        },
-                        count: currentProject.getProjectDays().length,
-                        effect: ColoredWormEffect.ColoredWormEffect(
-                          getColor: (index) => _getIndicatorColor(projectDays, donationForDays, index), // Custom color logic
-                          dotHeight: 12.0,
-                          dotWidth: 12.0,
-                          spacing: 8.0,
+                            ),
+                          ],
                         ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: SizedBox(
-                      height: 400, // Set a fixed height for horizontal scrolling
-                      child: Listener(
-                        onPointerSignal: (pointerSignal) {
-                          if (pointerSignal is PointerScrollEvent) {
-                            // Convert vertical mouse scroll into horizontal scroll
-                            _pageController.position.moveTo(
-                              _pageController.position.pixels + pointerSignal.scrollDelta.dy,
-                            );
-                          }
-                        },
-                        child: PageView.builder(
-                          controller: _pageController, // Use PageController for synchronization
-                          scrollDirection: Axis.horizontal, // Enable horizontal scrolling
-                          itemCount: projectDays.length,
-                          itemBuilder: (context, index) {
-                            final day = projectDays[index];
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8.0), // Add spacing between cards
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.8, // Set width to 80% of screen width
-                                child: ProjectDayCard(
-                                  project: currentProject,
-                                  dayEntity: day, // Pass
-                                  dayIndex: index,
-                                ),
-                              ),
-                            );
-                          },
+                      const SizedBox(height: 8),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Center(
+                          child: SmoothPageIndicator(
+                            controller: _pageController, // Bind to the PageController
+                            onDotClicked: (d) {
+                              debugPrint('Dot clicked: $d');
+                              var page = _pageController.page;
+                              double durationMs = ((page ?? 0) - d.toDouble()).abs() * 100 + 30;
+                              _pageController.animateToPage(
+                              d,
+                              duration: Duration(milliseconds: durationMs.toInt()),
+                              curve: Curves.bounceInOut,
+                              );
+                            },
+                            count: currentProject.getProjectDays().length,
+                            effect: ColoredWormEffect.ColoredWormEffect(
+                              getColor: (index) => _getIndicatorColor(projectDays, donationForDays, index), // Custom color logic
+                              dotHeight: 12.0,
+                              dotWidth: 12.0,
+                              spacing: 8.0,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                      const SizedBox(height: 16),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: SizedBox(
+                          height: 400, // Set a fixed height for horizontal scrolling
+                          child: Listener(
+                            onPointerSignal: (pointerSignal) {
+                              if (pointerSignal is PointerScrollEvent) {
+                                // Convert vertical mouse scroll into horizontal scroll
+                                _pageController.position.moveTo(
+                                  _pageController.position.pixels + pointerSignal.scrollDelta.dy,
+                                );
+                              }
+                            },
+                            child: PageView.builder(
+                              controller: _pageController, // Use PageController for synchronization
+                              scrollDirection: Axis.horizontal, // Enable horizontal scrolling
+                              itemCount: projectDays.length,
+                              itemBuilder: (context, index) {
+                                final day = projectDays[index];
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8.0), // Add spacing between cards
+                                  child: SizedBox(
+                                    width: MediaQuery.of(context).size.width * 0.8, // Set width to 80% of screen width
+                                    child: ProjectDayCard(
+                                      project: currentProject,
+                                      dayEntity: day, // Pass
+                                      dayIndex: index,
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
-          ),
-        );
-      },
-    );
+          );
+        }
+      );
+    } 
   }
 
   Color _getIndicatorColor(List<ProjectDayEntity> days, List<bool> donationsForDays, int index) {
@@ -201,6 +214,6 @@ class _ProjectPageState extends State<ProjectPage> {
       return Colors.blue.shade300; // Blue for past days
     } else {
       return Colors.grey.shade500; // Grey for future days
-    }
   }
+
 }

@@ -1,5 +1,6 @@
 name: my_flutter_project
 description: A new Flutter project.
+version: 1.0.0
 
 publish_to: 'none'
 
@@ -16,6 +17,7 @@ dependencies:
   smooth_page_indicator: ^1.2.0
   flutter_web_plugins:
     sdk: flutter
+  package_info_plus: ^8.3.0
 
 dev_dependencies:
   flutter_test:

@@ -32,8 +32,10 @@ jobs:
       env:
         FLUTTER_BASE_HREF: "/${{ github.event.repository.name }}/"
 
-    - name: Print index.html
-      run: cat build/web/index.html
+    - name: Embed version into index.html
+      run: |
+        VERSION=$(grep '^version:' pubspec.yaml | awk '{print $2}')
+        sed -i "s|<head>|<head><meta name='version' content='$VERSION'>|" build/web/index.html
 
     - name: Create .nojekyll file
       run: echo > build/web/.nojekyll
@@ -43,4 +45,3 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: build/web
-        force_orphan: true
