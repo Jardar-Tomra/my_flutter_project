@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:my_flutter_project/bloc/project.dart';
+import 'package:my_flutter_project/bloc/user_bloc.dart';
+import 'package:my_flutter_project/styles/app_text_styles.dart';
+import 'package:my_flutter_project/styles/button_styles.dart';
+import 'package:my_flutter_project/widgets/single_select_chip_list.dart';
 
 class SetupParticipationPage extends StatelessWidget {
   final Project project;
@@ -11,8 +15,10 @@ class SetupParticipationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController dailyDonationController = TextEditingController();
-    final TextEditingController householdSizeController = TextEditingController();
+    List<double> donationAmountsOptions = [5, 10, 15, 20, 30, 50];
+    var houseHoldSizeOptions = List.generate(6, (index) => index + 1);
+    double selectedDonationAmount = donationAmountsOptions[0]; // Default value
+    int selectedHouseholdSize = 1;
 
     return Scaffold(
       appBar: AppBar(
@@ -25,8 +31,9 @@ class SetupParticipationPage extends StatelessWidget {
             Image.asset(
               project.imageUrl,
               width: double.infinity,
-              height: 200,
+              height: 300,
               fit: BoxFit.cover,
+              alignment: Alignment.topCenter,
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -48,53 +55,66 @@ class SetupParticipationPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  TextField(
-                    controller: dailyDonationController,
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      labelText: 'Daily Donation Amount',
-                      border: OutlineInputBorder(),
-                    ),
+                  const Text(
+                    'Select Daily Donation Amount:',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 8),
+                  SingleSelectChipList<double>(
+                    items: donationAmountsOptions,
+                    selectedItem: selectedDonationAmount,
+                    onSelectionChanged: (value) {
+                      selectedDonationAmount = value!;
+                    },
                   ),
                   const SizedBox(height: 16),
-                  TextField(
-                    controller: householdSizeController,
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      labelText: 'Household Size',
-                      border: OutlineInputBorder(),
-                    ),
+                  const Text(
+                    'Select Household Size:',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 8),
+                  SingleSelectChipList<int>(
+                    items: houseHoldSizeOptions,
+                    selectedItem: selectedHouseholdSize,
+                    onSelectionChanged: (value) {
+                      selectedHouseholdSize = value!;
+                    },
                   ),
                   const SizedBox(height: 32),
-                  Center(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        final dailyDonation = double.tryParse(dailyDonationController.text);
-                        final householdSize = int.tryParse(householdSizeController.text);
-
-                        if (dailyDonation != null && householdSize != null) {
-                          // Logic to save the participation details
-                          print('Daily Donation: $dailyDonation, Household Size: $householdSize');
-                          Navigator.pop(context); // Navigate back after setup
-                        } else {
-                          // Show error if inputs are invalid
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          // Save the participation details
+                          context.activate(project.id, selectedDonationAmount!, selectedHouseholdSize ?? 1);
+                          // Confirm assignment
                           showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
-                              title: const Text('Invalid Input'),
-                              content: const Text('Please enter valid numbers for both fields.'),
+                              title: const Text('Participation Confirmed'),
+                              content: const Text('You have been successfully assigned to this project.'),
                               actions: [
                                 TextButton(
                                   onPressed: () => Navigator.pop(context),
-                                  child: const Text('OK'),
+                                  style: ButtonStyles.primaryButtonStyle,
+                                  child: const Text('OK', style: AppTextStyles.buttonTextStyle,),
                                 ),
                               ],
                             ),
-                          );
-                        }
-                      },
-                      child: const Text('Confirm'),
-                    ),
+                          ).then((_) => Navigator.pop(context));
+                                                },
+                        style: ButtonStyles.primaryButtonStyle,
+                        child: const Text('Confirm', style: AppTextStyles.buttonTextStyle,),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context); // Cancel and go back
+                        },
+                        style: ButtonStyles.secondaryButtonStyle,
+                        child: const Text('Cancel', style: AppTextStyles.buttonTextStyle,),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -105,3 +125,4 @@ class SetupParticipationPage extends StatelessWidget {
     );
   }
 }
+

@@ -23,6 +23,7 @@ class ProjectDayCard extends StatelessWidget {
     final bool isFuture = dayEntity.day.isAfter(today);
     final bool isToday = dayEntity.day.isSameDay(today);
     final hasDonated = project.hasDonatedFor(dayEntity);
+    final dailyDonationAmount = project.dailyDonationAmount;
 
     Color cardColor;
     if (hasDonated) {
@@ -89,7 +90,7 @@ class ProjectDayCard extends StatelessWidget {
                                     if (isToday)
                   DonationButton(
                     project: project, // Pass the project object to the button
-                    amount: 50.0, // Example amount
+                    amount: dailyDonationAmount, // Example amount
                   ),
                     Text(
                       dayEntity.day.toLocal().toString().split(' ')[0],

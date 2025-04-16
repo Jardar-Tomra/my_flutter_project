@@ -18,8 +18,9 @@ class UpdateActiveUser extends UserEvent {
 
 class ActivateProject extends UserEvent {
   final String projectId;
-
-  ActivateProject(this.projectId);
+  final double dailyDonationAmount;
+  final int householdSize;
+  ActivateProject(this.projectId, this.dailyDonationAmount, this.householdSize);
 }
 
 class DeactivateProject extends UserEvent {
@@ -53,7 +54,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<ActivateProject>((event, emit) {
       if (state is UserLoaded) {
         final activeUser = (state as UserLoaded).activeUser;
-        repo.activateProjectForUser(activeUser.id, event.projectId);
+        repo.assignProjectToUser(activeUser.id, event.projectId, event.dailyDonationAmount, event.householdSize);
         emit(UserLoaded(activeUser));
       }
     });
@@ -69,8 +70,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 }
 
 extension UserBlocExtension on BuildContext {
-  void activate(String projectId) {
-    read<UserBloc>().add(ActivateProject(projectId));
+  void activate(String projectId, double dailyDonationAmount, int householdSize) {
+    read<UserBloc>().add(ActivateProject(projectId, dailyDonationAmount, householdSize));
   }
 
     void deactivate(String projectId) {

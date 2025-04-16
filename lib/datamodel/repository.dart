@@ -148,7 +148,7 @@ class Repository {
     return projects.where((project) => !assignedProjectIds.contains(project.id)).toList();
   }
 
-  void activateProjectForUser(String userId, String projectId) {
+  void assignProjectToUser(String userId, String projectId, double dailyDonation, int householdSize) {
     _logger.i('Activating project $projectId for user $userId');
     final existingAssignment = userProjectAssignments.firstOrNullWhere(
       (assignment) => assignment.userId == userId && assignment.projectId == projectId
@@ -162,6 +162,8 @@ class Repository {
       user_project_assignment_entity.UserProjectAssignmentEntity(
         userId: userId,
         projectId: projectId,
+        dailyDonationAmount: dailyDonation,
+        peopleInHousehold: householdSize,
       ),
     );
   }
@@ -170,6 +172,13 @@ class Repository {
     _logger.i('Deactivating project $projectId for user $userId');
     userProjectAssignments.removeWhere(
       (assignment) => assignment.userId == userId && assignment.projectId == projectId,
+    );
+  }
+
+  user_project_assignment_entity.UserProjectAssignmentEntity getUserProjectAssignment(String userId, String projectId) {
+    return userProjectAssignments.firstWhere(
+      (assignment) => assignment.userId == userId && assignment.projectId == projectId,
+      orElse: () => throw ArgumentError('User is not assigned to this project'),
     );
   }
 

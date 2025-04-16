@@ -3,16 +3,22 @@ import 'dart:convert';
 class UserProjectAssignmentEntity {
   final String userId;
   final String projectId;
+  final double dailyDonationAmount;
+  final int peopleInHousehold;
 
   UserProjectAssignmentEntity({
     required this.userId,
     required this.projectId,
+    required this.dailyDonationAmount,
+    required this.peopleInHousehold,
   });
 
   factory UserProjectAssignmentEntity.fromJson(Map<String, dynamic> json) {
     return UserProjectAssignmentEntity(
       userId: json['userId'],
       projectId: json['projectId'],
+      dailyDonationAmount: json['dailyDonationAmount'],
+      peopleInHousehold: json['peopleInHousehold'],
     );
   }
 
@@ -20,6 +26,8 @@ class UserProjectAssignmentEntity {
     return {
       'userId': userId,
       'projectId': projectId,
+      'dailyDonationAmount': dailyDonationAmount,
+      'peopleInHousehold': peopleInHousehold,
     };
   }
 

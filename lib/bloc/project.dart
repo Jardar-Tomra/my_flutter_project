@@ -85,4 +85,10 @@ class Project {
     return donations().any((donation) => donation.projectDayId == day.id);
   }
 
+  double get dailyDonationAmount {
+    // Retrieve the user's chosen daily donation amount for this project
+    final assignment = repository.getUserProjectAssignment(userId, id);
+    return assignment.dailyDonationAmount; // Assuming `dailyDonationAmount` exists in the assignment entity
+  }
+
 }

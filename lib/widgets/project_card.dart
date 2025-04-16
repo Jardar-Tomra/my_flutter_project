@@ -5,6 +5,7 @@ import 'package:my_flutter_project/bloc/bloc_factory.dart';
 import 'package:my_flutter_project/bloc/project.dart';
 import 'package:my_flutter_project/bloc/user_bloc.dart';
 import 'package:my_flutter_project/datamodel/repository.dart';
+import 'package:my_flutter_project/styles/button_styles.dart';
 import 'package:my_flutter_project/widgets/date_badge.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_flutter_project/bloc/project_bloc.dart';
@@ -84,16 +85,7 @@ class ProjectCard extends StatelessWidget {
                                         ),
                                       );
                                     },
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.blueAccent, // Match Donate button color
-                                      padding: const EdgeInsets.symmetric(
-                                        vertical: 10.0,
-                                        horizontal: 20.0,
-                                      ),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8.0),
-                                      ),
-                                    ),
+                                    style: ButtonStyles.primaryButtonStyle,
                                     child: const Text(
                                       'Participate',
                                       style: TextStyle(

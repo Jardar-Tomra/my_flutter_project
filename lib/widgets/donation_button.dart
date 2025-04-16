@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_flutter_project/bloc/project.dart';
 import '../bloc/project_bloc.dart';
+import '../styles/button_styles.dart'; // Import the reusable button styles
 
 class DonationButton extends StatelessWidget {
   final Project project;
@@ -11,7 +12,6 @@ class DonationButton extends StatelessWidget {
     required this.project,
     required this.amount,
   });
-
 
   @override
   Widget build(BuildContext context) {
@@ -29,14 +29,7 @@ class DonationButton extends StatelessWidget {
     }
 
     return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(25.0), // Rounded corners
-        ),
-        backgroundColor: Colors.blueAccent, // Button background color
-        elevation: 5.0, // Shadow effect
-      ),
+      style: ButtonStyles.primaryButtonStyle, // Use the reusable button style
       onPressed: () {
         context.donate(project.id, amount);
 

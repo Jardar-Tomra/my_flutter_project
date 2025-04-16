@@ -61,7 +61,7 @@ class MoneyBadge extends StatelessWidget {
           ),
           const SizedBox(height: 8.0),
           Text(
-            'All Projects',
+            'All Participants',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: Colors.blue.shade800,
