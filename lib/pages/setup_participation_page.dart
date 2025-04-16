@@ -87,7 +87,7 @@ class SetupParticipationPage extends StatelessWidget {
                       ElevatedButton(
                         onPressed: () {
                           // Save the participation details
-                          context.activate(project.id, selectedDonationAmount!, selectedHouseholdSize ?? 1);
+                          context.activate(project.id, selectedDonationAmount, selectedHouseholdSize);
                           // Confirm assignment
                           showDialog(
                             context: context,

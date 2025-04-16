@@ -92,10 +92,6 @@ class ProjectDayCard extends StatelessWidget {
                     project: project, // Pass the project object to the button
                     amount: dailyDonationAmount, // Example amount
                   ),
-                    Text(
-                      dayEntity.day.toLocal().toString().split(' ')[0],
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
                   ],
                 )
               ],
@@ -104,13 +100,26 @@ class ProjectDayCard extends StatelessWidget {
           Positioned(
             bottom: 16.0,
             right: 16.0,
-            child: Text(
-              'Day ${dayIndex + 1}', // Display dayIndex
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                fontSize: 40.0,
-                color: Colors.white.withOpacity(0.9), // Lightened color
-                fontWeight: FontWeight.bold,
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Day ${dayIndex + 1}', // Display dayIndex
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    fontSize: 40.0,
+                    color: Colors.white.withOpacity(0.9), // Lightened color
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  '${dayEntity.day.toLocal().toShortDateString()}', // Display dayIndex
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    fontSize: 14.0,
+                    color: Colors.white.withOpacity(0.9), // Lightened color
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
           ),
         ],

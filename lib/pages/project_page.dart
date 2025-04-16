@@ -6,7 +6,6 @@ import 'package:caritas_donation_app/bloc/aggregated_project_bloc.dart';
 import 'package:caritas_donation_app/bloc/bloc_factory.dart';
 import 'package:caritas_donation_app/bloc/project.dart';
 import 'package:caritas_donation_app/datamodel/project_day_entity.dart';
-import 'package:caritas_donation_app/datamodel/repository.dart';
 import 'package:caritas_donation_app/extensions/date_time_formatting.dart';
 import 'package:caritas_donation_app/styles/app_text_styles.dart';
 import 'package:caritas_donation_app/widgets/colored_worm_effect.dart';

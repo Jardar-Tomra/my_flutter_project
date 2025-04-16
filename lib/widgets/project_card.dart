@@ -3,8 +3,6 @@ import 'package:get_it/get_it.dart';
 import 'package:caritas_donation_app/bloc/aggregated_project_bloc.dart';
 import 'package:caritas_donation_app/bloc/bloc_factory.dart';
 import 'package:caritas_donation_app/bloc/project.dart';
-import 'package:caritas_donation_app/bloc/user_bloc.dart';
-import 'package:caritas_donation_app/datamodel/repository.dart';
 import 'package:caritas_donation_app/styles/button_styles.dart';
 import 'package:caritas_donation_app/widgets/date_badge.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
