@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_flutter_project/datamodel/repository.dart';
-import 'package:my_flutter_project/utils/donation_simulator.dart';
+import 'package:caritas_donation_app/datamodel/repository.dart';
+import 'package:caritas_donation_app/utils/donation_simulator.dart';
 
 class AggregatedProjectState {
   final int totalParticipants;

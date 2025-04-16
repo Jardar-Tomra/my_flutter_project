@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_flutter_project/bloc/project.dart';
+import 'package:caritas_donation_app/bloc/project.dart';
 import '../bloc/project_bloc.dart';
 import '../styles/button_styles.dart'; // Import the reusable button styles
 

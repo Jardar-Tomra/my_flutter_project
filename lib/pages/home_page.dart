@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_flutter_project/widgets/project_card.dart';
+import 'package:caritas_donation_app/widgets/project_card.dart';
 import '../bloc/project_bloc.dart';
 import '../bloc/user_bloc.dart';
 import 'project_page.dart'; // Import the project overview page

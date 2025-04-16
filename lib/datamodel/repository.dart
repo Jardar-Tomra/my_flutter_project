@@ -1,5 +1,5 @@
-import 'package:my_flutter_project/extensions/date_time_formatting.dart';
-import 'package:my_flutter_project/extensions/list_extensions.dart';
+import 'package:caritas_donation_app/extensions/date_time_formatting.dart';
+import 'package:caritas_donation_app/extensions/list_extensions.dart';
 import 'package:logger/logger.dart';
 
 import 'user_entity.dart';

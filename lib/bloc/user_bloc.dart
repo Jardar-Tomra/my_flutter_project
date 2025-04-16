@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:my_flutter_project/bloc/user.dart';
-import 'package:my_flutter_project/datamodel/repository.dart' as repository_entity;
-import 'package:my_flutter_project/datamodel/user_entity.dart';
+import 'package:caritas_donation_app/bloc/user.dart';
+import 'package:caritas_donation_app/datamodel/repository.dart' as repository_entity;
+import 'package:caritas_donation_app/datamodel/user_entity.dart';
 
 
 abstract class UserEvent {}

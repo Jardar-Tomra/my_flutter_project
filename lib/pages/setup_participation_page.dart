@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:my_flutter_project/bloc/project.dart';
-import 'package:my_flutter_project/bloc/user_bloc.dart';
-import 'package:my_flutter_project/styles/app_text_styles.dart';
-import 'package:my_flutter_project/styles/button_styles.dart';
-import 'package:my_flutter_project/widgets/single_select_chip_list.dart';
+import 'package:caritas_donation_app/bloc/project.dart';
+import 'package:caritas_donation_app/bloc/user_bloc.dart';
+import 'package:caritas_donation_app/styles/app_text_styles.dart';
+import 'package:caritas_donation_app/styles/button_styles.dart';
+import 'package:caritas_donation_app/widgets/single_select_chip_list.dart';
 
 class SetupParticipationPage extends StatelessWidget {
   final Project project;

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_flutter_project/bloc/project.dart';
-import 'package:my_flutter_project/datamodel/project_day_entity.dart';
-import 'package:my_flutter_project/extensions/date_time_formatting.dart';
-import 'package:my_flutter_project/widgets/donation_button.dart';
+import 'package:caritas_donation_app/bloc/project.dart';
+import 'package:caritas_donation_app/datamodel/project_day_entity.dart';
+import 'package:caritas_donation_app/extensions/date_time_formatting.dart';
+import 'package:caritas_donation_app/widgets/donation_button.dart';
 
 class ProjectDayCard extends StatelessWidget {
   final Project project;

@@ -75,7 +75,7 @@ class DateBadge extends StatelessWidget {
   double _getPadding() {
     switch (size) {
       case BadgeSize.small:
-        return 6.0;
+        return 8.0;
       case BadgeSize.medium:
         return 10.0;
       case BadgeSize.large:
@@ -86,7 +86,7 @@ class DateBadge extends StatelessWidget {
   double _getDividerHeight() {
     switch (size) {
       case BadgeSize.small:
-        return 20.0;
+        return 25.0;
       case BadgeSize.medium:
         return 30.0;
       case BadgeSize.large:
@@ -108,7 +108,7 @@ class DateBadge extends StatelessWidget {
   TextStyle _getDateStyle() {
     switch (size) {
       case BadgeSize.small:
-        return const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.black87);
+        return const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black87);
       case BadgeSize.medium:
         return const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black87);
       case BadgeSize.large:
@@ -119,9 +119,9 @@ class DateBadge extends StatelessWidget {
   TextStyle _getYearStyle() {
     switch (size) {
       case BadgeSize.small:
-        return const TextStyle(fontSize: 10, color: Colors.black54);
+        return const TextStyle(fontSize: 12, color: Colors.black54);
       case BadgeSize.medium:
-        return const TextStyle(fontSize: 13, color: Colors.black54);
+        return const TextStyle(fontSize: 14, color: Colors.black54);
       case BadgeSize.large:
         return const TextStyle(fontSize: 16, color: Colors.black54);
     }

@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
-import 'package:my_flutter_project/datamodel/repository.dart' as repository_entity;
-import 'package:my_flutter_project/datamodel/user_entity.dart';
+import 'package:caritas_donation_app/datamodel/repository.dart' as repository_entity;
+import 'package:caritas_donation_app/datamodel/user_entity.dart';
 
 final getIt = GetIt.instance;
 

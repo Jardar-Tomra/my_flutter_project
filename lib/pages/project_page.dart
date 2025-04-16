@@ -2,15 +2,15 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:my_flutter_project/bloc/aggregated_project_bloc.dart';
-import 'package:my_flutter_project/bloc/bloc_factory.dart';
-import 'package:my_flutter_project/bloc/project.dart';
-import 'package:my_flutter_project/datamodel/project_day_entity.dart';
-import 'package:my_flutter_project/datamodel/repository.dart';
-import 'package:my_flutter_project/extensions/date_time_formatting.dart';
-import 'package:my_flutter_project/styles/app_text_styles.dart';
-import 'package:my_flutter_project/widgets/colored_worm_effect.dart';
-import 'package:my_flutter_project/widgets/project_day_card.dart';
+import 'package:caritas_donation_app/bloc/aggregated_project_bloc.dart';
+import 'package:caritas_donation_app/bloc/bloc_factory.dart';
+import 'package:caritas_donation_app/bloc/project.dart';
+import 'package:caritas_donation_app/datamodel/project_day_entity.dart';
+import 'package:caritas_donation_app/datamodel/repository.dart';
+import 'package:caritas_donation_app/extensions/date_time_formatting.dart';
+import 'package:caritas_donation_app/styles/app_text_styles.dart';
+import 'package:caritas_donation_app/widgets/colored_worm_effect.dart';
+import 'package:caritas_donation_app/widgets/project_day_card.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'; // Import the package
 import '../../bloc/project_bloc.dart';
 import '../../widgets/date_badge.dart'; // Import the DateBadge widget

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:my_flutter_project/bloc/aggregated_project_bloc.dart';
-import 'package:my_flutter_project/bloc/bloc_factory.dart';
-import 'package:my_flutter_project/bloc/project.dart';
-import 'package:my_flutter_project/bloc/user_bloc.dart';
-import 'package:my_flutter_project/datamodel/repository.dart';
-import 'package:my_flutter_project/styles/button_styles.dart';
-import 'package:my_flutter_project/widgets/date_badge.dart';
+import 'package:caritas_donation_app/bloc/aggregated_project_bloc.dart';
+import 'package:caritas_donation_app/bloc/bloc_factory.dart';
+import 'package:caritas_donation_app/bloc/project.dart';
+import 'package:caritas_donation_app/bloc/user_bloc.dart';
+import 'package:caritas_donation_app/datamodel/repository.dart';
+import 'package:caritas_donation_app/styles/button_styles.dart';
+import 'package:caritas_donation_app/widgets/date_badge.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_flutter_project/bloc/project_bloc.dart';
-import 'package:my_flutter_project/styles/app_text_styles.dart';
-import 'package:my_flutter_project/widgets/money_badge.dart'; // Import MoneyBadge
-import 'package:my_flutter_project/pages/setup_participation_page.dart';
+import 'package:caritas_donation_app/bloc/project_bloc.dart';
+import 'package:caritas_donation_app/styles/app_text_styles.dart';
+import 'package:caritas_donation_app/widgets/money_badge.dart'; // Import MoneyBadge
+import 'package:caritas_donation_app/pages/setup_participation_page.dart';
 
 class ProjectCard extends StatelessWidget {
   final Project project;

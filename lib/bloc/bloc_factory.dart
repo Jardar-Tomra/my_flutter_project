@@ -1,5 +1,5 @@
-import 'package:my_flutter_project/datamodel/repository.dart';
-import 'package:my_flutter_project/utils/donation_simulator.dart';
+import 'package:caritas_donation_app/datamodel/repository.dart';
+import 'package:caritas_donation_app/utils/donation_simulator.dart';
 import 'project_bloc.dart';
 import 'user_bloc.dart';
 import 'aggregated_project_bloc.dart';

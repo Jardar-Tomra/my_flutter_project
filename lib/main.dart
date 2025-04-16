@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:my_flutter_project/bloc/bloc_factory.dart';
-import 'package:my_flutter_project/datamodel/user_entity.dart';
+import 'package:caritas_donation_app/bloc/bloc_factory.dart';
+import 'package:caritas_donation_app/datamodel/user_entity.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'bloc/project_bloc.dart';
 import 'bloc/user_bloc.dart';

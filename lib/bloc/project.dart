@@ -1,7 +1,7 @@
-import 'package:my_flutter_project/datamodel/donation_entity.dart';
-import 'package:my_flutter_project/datamodel/project_day_entity.dart';
-import 'package:my_flutter_project/datamodel/project_entity.dart';
-import 'package:my_flutter_project/datamodel/repository.dart';
+import 'package:caritas_donation_app/datamodel/donation_entity.dart';
+import 'package:caritas_donation_app/datamodel/project_day_entity.dart';
+import 'package:caritas_donation_app/datamodel/project_entity.dart';
+import 'package:caritas_donation_app/datamodel/repository.dart';
 import 'package:flutter/widgets.dart';
 
 class Project {
