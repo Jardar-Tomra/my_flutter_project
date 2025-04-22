@@ -40,7 +40,7 @@ class ProjectCard extends StatelessWidget {
 
           return BlocProvider(
             create: (context) {
-              print("Creating AggregatedProjectBloc for project ID: ${project.id}");
+              print('Creating AggregatedProjectBloc for project ID: ${project.id}');
               return GetIt.instance<BlocFactory>().createAggregatedProjectBloc(project.id);
             },
             child: Card(

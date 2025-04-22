@@ -44,7 +44,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc(repository_entity.Repository repo) : super(UserInitial()) {
     on<LoadUsers>((event, emit) {
       // Load initial users from user_data.dart
-      print("Emitting user");
+      print('Emitting user');
       emit(UserLoaded(User.fromEntity(repo, GetIt.instance.get<UserEntity>()) )); // Assuming the first user is the active one
     });
 

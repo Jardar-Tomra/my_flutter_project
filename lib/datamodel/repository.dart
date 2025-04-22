@@ -210,12 +210,12 @@ class Repository {
     return projectDays.where((day) => day.projectId == id).toList();
   }
 
-  getProjects() {
+  List<project_entity.ProjectEntity> getProjects() {
     _logger.i('Fetching all projects');
     return projects;
   }
 
-  getUsers() {
+  List<UserEntity> getUsers() {
     _logger.i('Fetching all users');
     return users;
   }

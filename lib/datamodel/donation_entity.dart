@@ -37,7 +37,7 @@ class DonationEntity {
       'projectDayId': projectDayId,
       'date': date.toIso8601String(),
       'amount': amount,
-      'participantName': donator, // Serialize participantName
+      'donator': donator, // Serialize participantName
     };
   }
 }

@@ -32,11 +32,9 @@ class DonationButton extends StatelessWidget {
           ),
           const SizedBox(width: 8.0),
           Text(
-            '$donator has already donated today. Thank you!',
+            '$donator has donated today.',
             style: const TextStyle(
               fontSize: 14,
-              fontStyle: FontStyle.italic,
-              color: Colors.grey,
             ),
           ),
         ],
