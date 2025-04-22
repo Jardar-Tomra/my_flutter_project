@@ -4,13 +4,13 @@ class UserProjectAssignmentEntity {
   final String userId;
   final String projectId;
   final double dailyDonationAmount;
-  final int peopleInHousehold;
+  final List<String> participants; // Replaced peopleInHousehold with participants
 
   UserProjectAssignmentEntity({
     required this.userId,
     required this.projectId,
     required this.dailyDonationAmount,
-    required this.peopleInHousehold,
+    required this.participants,
   });
 
   factory UserProjectAssignmentEntity.fromJson(Map<String, dynamic> json) {
@@ -18,7 +18,7 @@ class UserProjectAssignmentEntity {
       userId: json['userId'],
       projectId: json['projectId'],
       dailyDonationAmount: json['dailyDonationAmount'],
-      peopleInHousehold: json['peopleInHousehold'],
+      participants: List<String>.from(json['participants']), // Deserialize participants
     );
   }
 
@@ -27,7 +27,7 @@ class UserProjectAssignmentEntity {
       'userId': userId,
       'projectId': projectId,
       'dailyDonationAmount': dailyDonationAmount,
-      'peopleInHousehold': peopleInHousehold,
+      'participants': participants, // Serialize participants
     };
   }
 

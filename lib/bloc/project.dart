@@ -2,6 +2,8 @@ import 'package:caritas_donation_app/datamodel/donation_entity.dart';
 import 'package:caritas_donation_app/datamodel/project_day_entity.dart';
 import 'package:caritas_donation_app/datamodel/project_entity.dart';
 import 'package:caritas_donation_app/datamodel/repository.dart';
+import 'package:caritas_donation_app/datamodel/user_project_assignment_entity.dart';
+import 'package:caritas_donation_app/extensions/date_time_formatting.dart';
 import 'package:flutter/widgets.dart';
 
 class Project {
@@ -62,33 +64,44 @@ class Project {
     return DateTime.now().isAfter(endDate);
   }
 
-  void donate(double amount) {
+  void donate(double amount, String donator) {
     if (amount <= 0) {
       throw ArgumentError('Donation amount must be greater than zero.');
     }
-    repository.addDonationForToday(userId, id, amount);
+    repository.addDonationForToday(userId, id, amount, donator);
   }
 
   bool hasDonatedToday() {
     final today = DateTime.now();
-    return donations().any((donation) =>
-        donation.date.year == today.year &&
-        donation.date.month == today.month &&
-        donation.date.day == today.day);
+    return donations().any((donation) => donation.date.isSameDay(today) );
   }
+
 
   List<ProjectDayEntity> getProjectDays() {
     return repository.getProjectDaysByProjectId(id);
   }
 
-  bool hasDonatedFor(ProjectDayEntity day) {
+  bool hasDonatedForDay(ProjectDayEntity day) {
     return donations().any((donation) => donation.projectDayId == day.id);
+  }
+
+  bool hasDonatedForDayBy(ProjectDayEntity day, String donator) {
+    return donations().any((donation) => donation.projectDayId == day.id && donation.donator == donator);
+  }
+
+  List<String> getDonators() {
+    return getUserProjectEntity().participants;
   }
 
   double get dailyDonationAmount {
     // Retrieve the user's chosen daily donation amount for this project
-    final assignment = repository.getUserProjectAssignment(userId, id);
+    UserProjectAssignmentEntity assignment = getUserProjectEntity();
     return assignment.dailyDonationAmount; // Assuming `dailyDonationAmount` exists in the assignment entity
+  }
+
+  UserProjectAssignmentEntity getUserProjectEntity() {
+    final assignment = repository.getUserProjectAssignment(userId, id);
+    return assignment;
   }
 
 }

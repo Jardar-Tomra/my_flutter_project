@@ -26,8 +26,9 @@ class RefreshProjects extends ProjectEvent {}
 class AddDonationEvent extends ProjectEvent {
   final String projectId;
   final double amount;
+  final String donator;
 
-  AddDonationEvent({required this.projectId, required this.amount});
+  AddDonationEvent({required this.projectId, required this.amount, required this.donator});
 }
 
 abstract class ProjectState {}
@@ -72,7 +73,7 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
 
     on<AddDonationEvent>((event, emit) {
       var p = projects.firstWhere((project) => project.id == event.projectId);
-      p.donate(event.amount);
+      p.donate(event.amount, event.donator);
       emit(ProjectUpdatedState( p ));
     });
   }
@@ -84,10 +85,11 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
 }
 
 extension ProjectBlocExtension on BuildContext {
-  void donate(String projectId, double amount) {
+  void donate(String projectId, double amount, String donator) {
     read<ProjectBloc>().add(AddDonationEvent(
       projectId: projectId,
       amount: amount,
+      donator: donator,
     ));
   }
 }

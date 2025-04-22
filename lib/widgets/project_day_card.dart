@@ -22,7 +22,7 @@ class ProjectDayCard extends StatelessWidget {
     final bool isPast = dayEntity.day.isBefore(today);
     final bool isFuture = dayEntity.day.isAfter(today);
     final bool isToday = dayEntity.day.isSameDay(today);
-    final hasDonated = project.hasDonatedFor(dayEntity);
+    final hasDonated = project.hasDonatedForDay(dayEntity);
     final dailyDonationAmount = project.dailyDonationAmount;
 
     Color cardColor;
@@ -87,11 +87,17 @@ class ProjectDayCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween, // Align to the right
                   children: [
-                                    if (isToday)
-                  DonationButton(
-                    project: project, // Pass the project object to the button
-                    amount: dailyDonationAmount, // Example amount
-                  ),
+                    if (isToday)
+                      ...project.getDonators()
+                          .map((de) => Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: DonationButton(
+                                  project: project, // Pass the project object to the button
+                                  amount: dailyDonationAmount, // Example amount
+                                  participantName: de, // Pass the participant name
+                                ),
+                              ))
+                          .toList(),
                   ],
                 )
               ],

@@ -60,7 +60,7 @@ class _ProjectPageState extends State<ProjectPage> {
         builder: (context, state) {
           final currentProject = state is ProjectUpdatedState ? state.project : widget.project;
           final projectDays = currentProject.getProjectDays();
-          final donationForDays = projectDays.map((m) => currentProject.hasDonatedFor(m)).toList();
+          final donationForDays = projectDays.map((m) => currentProject.hasDonatedForDay(m)).toList();
 
           return WillPopScope(
             onWillPop: () => Future(() {

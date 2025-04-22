@@ -73,8 +73,8 @@ class Repository {
     return projectDays.firstWhere((day) => day.projectId == projectId && day.day.isSameDay(date), orElse: () => throw ArgumentError('ProjectDay not found'));
   }
 
-  void addDonationForToday(String projectId, String userId, double amount) {
-    _logger.i('Adding donation for today. Project: $projectId, User: $userId, Amount: $amount');
+  void addDonationForToday(String projectId, String userId, double amount, String participantName) {
+    _logger.i('Adding donation for today. Project: $projectId, User: $userId, Amount: $amount, Participant: $participantName'); 
     final today = DateTime.now().dateOnly();
 
     var d = donations.firstOrNullWhere((donation) =>
@@ -93,6 +93,7 @@ class Repository {
       projectDayId: pd.id,
       date: today,
       amount: amount,
+      donator: participantName, // Add participantName to the donation
     );
     donations.add(donation);
   }
@@ -148,10 +149,10 @@ class Repository {
     return projects.where((project) => !assignedProjectIds.contains(project.id)).toList();
   }
 
-  void assignProjectToUser(String userId, String projectId, double dailyDonation, int householdSize) {
-    _logger.i('Activating project $projectId for user $userId');
+  void assignProjectToUser(String userId, String projectId, double dailyDonationAmount, List<String> participants) {
+    _logger.i('Activating project $projectId for user $userId with participants: $participants');
     final existingAssignment = userProjectAssignments.firstOrNullWhere(
-      (assignment) => assignment.userId == userId && assignment.projectId == projectId
+      (assignment) => assignment.userId == userId && assignment.projectId == projectId,
     );
 
     if (existingAssignment != null) {
@@ -162,8 +163,8 @@ class Repository {
       user_project_assignment_entity.UserProjectAssignmentEntity(
         userId: userId,
         projectId: projectId,
-        dailyDonationAmount: dailyDonation,
-        peopleInHousehold: householdSize,
+        dailyDonationAmount: dailyDonationAmount,
+        participants: participants, // Updated to use participants
       ),
     );
   }
