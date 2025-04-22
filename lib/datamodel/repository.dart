@@ -73,13 +73,14 @@ class Repository {
     return projectDays.firstWhere((day) => day.projectId == projectId && day.day.isSameDay(date), orElse: () => throw ArgumentError('ProjectDay not found'));
   }
 
-  void addDonationForToday(String projectId, String userId, double amount, String participantName) {
-    _logger.i('Adding donation for today. Project: $projectId, User: $userId, Amount: $amount, Participant: $participantName'); 
+  void addDonationForToday(String projectId, String userId, double amount, String donator) {
+    _logger.i('Adding donation for today. Project: $projectId, User: $userId, Amount: $amount, Donator: $donator'); 
     final today = DateTime.now().dateOnly();
 
     var d = donations.firstOrNullWhere((donation) =>
         donation.userId == userId &&
         donation.projectId == projectId &&
+        donation.donator == donator && // Check for participantName
         donation.date.isSameDay(today));
     if (d != null) {
       throw ArgumentError('Donation already exists for today');
@@ -93,7 +94,7 @@ class Repository {
       projectDayId: pd.id,
       date: today,
       amount: amount,
-      donator: participantName, // Add participantName to the donation
+      donator: donator, // Add participantName to the donation
     );
     donations.add(donation);
   }

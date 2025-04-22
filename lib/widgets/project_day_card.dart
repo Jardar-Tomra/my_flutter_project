@@ -94,7 +94,8 @@ class ProjectDayCard extends StatelessWidget {
                                 child: DonationButton(
                                   project: project, // Pass the project object to the button
                                   amount: dailyDonationAmount, // Example amount
-                                  participantName: de, // Pass the participant name
+                                  donator: de, // Pass the participant name
+                                  dayEntity: dayEntity,
                                 ),
                               ))
                           .toList(),
