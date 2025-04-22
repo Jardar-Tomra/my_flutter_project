@@ -23,13 +23,23 @@ class DonationButton extends StatelessWidget {
     final hasDonatedToday = project.hasDonatedForDayBy(dayEntity, donator); // Check if the participant has donated today
 
     if (hasDonatedToday) {
-      return Text(
-        '$donator has already donated today. Thank you!',
-        style: const TextStyle(
-          fontSize: 14,
-          fontStyle: FontStyle.italic,
-          color: Colors.grey,
-        ),
+      return Row(
+        children: [
+          const Icon(
+            Icons.check_circle,
+            color: Colors.green,
+            size: 20.0, // Checkmark icon
+          ),
+          const SizedBox(width: 8.0),
+          Text(
+            '$donator has already donated today. Thank you!',
+            style: const TextStyle(
+              fontSize: 14,
+              fontStyle: FontStyle.italic,
+              color: Colors.grey,
+            ),
+          ),
+        ],
       );
     }
 

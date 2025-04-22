@@ -125,7 +125,7 @@ class SetupParticipationPage extends StatelessWidget {
                                   .where((name) => name.trim().isNotEmpty)
                                   .toList();
 
-                              if (selectedDonationAmount != null && validParticipants.isNotEmpty) {
+                              if (validParticipants.isNotEmpty) {
                                 context.activate(project.id, selectedDonationAmount, validParticipants);
                                 // Confirm assignment
                                 showDialog(
