@@ -1,11 +1,11 @@
 {
-    "name": "my_flutter_project",
-    "short_name": "my_flutter_project",
+    "name": "Caritas Donation App",
+    "short_name": "Caritas Donation App",
     "start_url": ".",
-    "display": "standalone",
+    "display": "mobile",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "An for donating money to projects run by Caritas.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
