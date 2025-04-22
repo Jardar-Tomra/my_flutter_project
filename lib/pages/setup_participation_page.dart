@@ -119,6 +119,13 @@ class SetupParticipationPage extends StatelessWidget {
                         children: [
                           ElevatedButton(
                             onPressed: () {
+                              Navigator.pop(context); // Cancel and go back
+                            },
+                            style: ButtonStyles.secondaryButtonStyle,
+                            child: const Text('Cancel', style: AppTextStyles.buttonTextStyle),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
                               // Ensure at least one participant name is provided
                               final validParticipants = participants
                                   .take(selectedHouseholdSize)
@@ -161,13 +168,6 @@ class SetupParticipationPage extends StatelessWidget {
                             },
                             style: ButtonStyles.primaryButtonStyle,
                             child: const Text('Confirm', style: AppTextStyles.buttonTextStyle),
-                          ),
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context); // Cancel and go back
-                            },
-                            style: ButtonStyles.secondaryButtonStyle,
-                            child: const Text('Cancel', style: AppTextStyles.buttonTextStyle),
                           ),
                         ],
                       ),

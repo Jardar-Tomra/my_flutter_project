@@ -52,8 +52,13 @@ class Project {
     return repository.getAssignedProjectsForUser(userId).any((project) => project.id == id);
   }
 
+  List<DonationEntity>? _cachedDonations; // Cache for donations
+
   List<DonationEntity> donations() {
-    return repository.getDonationsByUserForProject(userId, id);
+    if (_cachedDonations == null) {
+      _cachedDonations = repository.getDonationsByUserForProject(userId, id);
+    }
+    return _cachedDonations!;
   }
 
   double totalDonations() {
@@ -69,6 +74,7 @@ class Project {
       throw ArgumentError('Donation amount must be greater than zero.');
     }
     repository.addDonationForToday(userId, id, amount, donator);
+    _cachedDonations = null; // Invalidate cache after a new donation
   }
 
   bool hasDonatedToday() {
