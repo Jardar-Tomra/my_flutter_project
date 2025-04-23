@@ -29,7 +29,7 @@ class MoneyBadge extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            'Your Total',
+            'You',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: Colors.blue.shade800,
@@ -61,7 +61,7 @@ class MoneyBadge extends StatelessWidget {
           ),
           const SizedBox(height: 8.0),
           Text(
-            'All Participants',
+            'All',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: Colors.blue.shade800,

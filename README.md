@@ -16,11 +16,14 @@ my_flutter_project
 │   │   ├── repository.dart      # Repository for managing data
 │   │   └── user_entity.dart     # Data model for users
 │   ├── screens
-│   │   └── home_screen.dart     # Home screen of the app
+│   │   ├── home_screen.dart     # Home screen of the app
+│   │   └── details_screen.dart  # Detailed view for projects and donations
 │   ├── widgets
-│   │   └── custom_widget.dart   # Reusable custom widget
+│   │   ├── custom_widget.dart   # Reusable custom widget
+│   │   └── donation_card.dart   # Widget for displaying donation details
 │   └── extensions
-│       └── date_time_formatting.dart # Utility extensions for DateTime
+│       ├── date_time_formatting.dart # Utility extensions for DateTime
+│       └── list_extensions.dart     # Utility extensions for List operations
 ├── assets
 │   └── data
 │       ├── project_days.json    # JSON data for project days
@@ -28,6 +31,7 @@ my_flutter_project
 │       └── donations.json       # JSON data for donations
 ├── pubspec.yaml                 # Project configuration and dependencies
 ├── analysis_options.yaml        # Dart analyzer configuration
+├── LICENSE                      # License file for the project
 └── README.md                    # Project documentation
 ```
 
@@ -47,6 +51,8 @@ flutter run
 - **Custom Widgets**: Reusable widgets for consistent UI across the app.
 - **Data Models**: Comprehensive data models for projects, donations, and users.
 - **Utility Extensions**: Helpful extensions for working with `DateTime` and lists.
+- **Detailed Screens**: View detailed information about projects and donations.
+- **Improved UI**: Enhanced user interface with additional reusable components.
 
 ## Contributing
 
