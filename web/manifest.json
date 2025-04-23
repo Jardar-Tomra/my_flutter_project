@@ -3,7 +3,7 @@
     "short_name": "Caritas Donation App",
     "lang": "en-US",
     "start_url": ".",
-    "display": "mobile",
+    "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
     "description": "An application for donating money to projects run by Caritas.",
