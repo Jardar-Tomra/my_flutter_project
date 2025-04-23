@@ -39578,7 +39578,7 @@ r.an(t.Pu).f.XD(A.axn(s,s,s,s,s,B.T,s,A.bW("Thank you, "+p+", for your donation!
 $S:0}
 A.oP.prototype={
 M(a){var s,r,q,p,o,n,m=null,l=A.ln(8),k=A.b([new A.dd(0,B.cW,A.ax(B.c.aD(25.5),B.l.C()>>>16&255,B.l.C()>>>8&255,B.l.C()&255),B.jB,8)],t.sq),j=A.V(a).p1.Q
-j=A.bW("Your Total",m,m,m,j==null?m:j.Sb(B.dU,B.a1),m,m)
+j=A.bW("You",m,m,m,j==null?m:j.Sb(B.dU,B.a1),m,m)
 s=A.V(a).p1.Q
 s=A.bW("$",m,m,m,s==null?m:s.pw(B.dU,12,B.a1),m,m)
 r=B.c.aa(this.c,0)
@@ -39586,7 +39586,7 @@ q=A.V(a).p1.y
 p=t.D
 q=A.kx(A.b([s,B.xI,A.bW(r,m,m,m,q==null?m:q.pw(B.il,18,B.a1),m,m)],p),B.aw,B.fS,B.Z)
 r=A.V(a).p1.Q
-s=A.bW("All Participants",m,m,m,r==null?m:r.Sb(B.dU,B.a1),m,m)
+s=A.bW("All",m,m,m,r==null?m:r.Sb(B.dU,B.a1),m,m)
 r=A.V(a).p1.Q
 r=A.bW("$",m,m,m,r==null?m:r.pw(B.dU,12,B.a1),m,m)
 o=B.c.aa(this.d,0)
